@@ -14,7 +14,7 @@
     "allowJs": true,
     "moduleResolution": "node",
     "lib": ["es2018", "es2020", "dom", "dom.iterable"],
-    "esModuleInterop": true,
+    "esModuleInterop": true
   },
   "exclude": ["node_modules"]
 }

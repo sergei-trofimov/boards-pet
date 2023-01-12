@@ -1,29 +1,29 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 const babelLoader = {
-  loader: "babel-loader",
-  options: { cacheDirectory: true, presets: ["@babel/preset-react"] },
+  loader: 'babel-loader',
+  options: { cacheDirectory: true, presets: ['@babel/preset-react'] },
 };
 
 const baseConfig = {
-  entry: "./src/index.ts",
+  entry: './src/index.ts',
   output: {
-    filename: "[name].bundle.js",
-    path: path.resolve(__dirname, "public"),
+    filename: '[name].bundle.js',
+    path: path.resolve(__dirname, 'public'),
     clean: true,
   },
   optimization: {
     minimizer: [new CssMinimizerPlugin()],
     splitChunks: {
-      chunks: "all",
+      chunks: 'all',
     },
   },
-  stats: "errors-warnings",
+  stats: 'errors-warnings',
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./src/index.html",
+      template: './src/index.html',
     }),
   ],
   module: {
@@ -32,27 +32,27 @@ const baseConfig = {
         test: /\.s[ac]ss$/i,
         use: [
           // Creates `style` nodes from JS strings
-          "style-loader",
+          'style-loader',
           // Translates CSS into CommonJS
-          "css-loader",
+          'css-loader',
           // Compiles Sass to CSS
-          "sass-loader",
+          'sass-loader',
         ],
       },
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        include: path.resolve(__dirname, "src"),
+        include: path.resolve(__dirname, 'src'),
         use: [babelLoader],
       },
       {
         test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
-        include: path.resolve(__dirname, "src"),
+        include: path.resolve(__dirname, 'src'),
         use: [
           babelLoader,
           {
-            loader: "ts-loader",
+            loader: 'ts-loader',
             options: {
               transpileOnly: true,
             },
@@ -62,13 +62,13 @@ const baseConfig = {
     ],
   },
   resolve: {
-    extensions: [".ts", ".tsx", ".js"],
+    extensions: ['.ts', '.tsx', '.js'],
   },
 };
 
 const devModeCofig = {
-  mode: "development",
-  devtool: "inline-source-map",
+  mode: 'development',
+  devtool: 'inline-source-map',
   devServer: {
     open: true,
     historyApiFallback: true,
@@ -77,8 +77,8 @@ const devModeCofig = {
 };
 
 module.exports = (_, argv) => {
-  if (argv.mode === "production") {
-    return { mode: "production", ...baseConfig };
+  if (argv.mode === 'production') {
+    return { mode: 'production', ...baseConfig };
   }
 
   return { ...baseConfig, ...devModeCofig };
