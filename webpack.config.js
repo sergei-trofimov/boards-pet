@@ -1,21 +1,26 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
-module.exports = {
+const babelLoader = {
+  loader: "babel-loader",
+  options: { cacheDirectory: true, presets: ["@babel/preset-react"] },
+};
+
+const baseConfig = {
   entry: "./src/index.ts",
-  mode: "none",
   output: {
     filename: "[name].bundle.js",
     path: path.resolve(__dirname, "public"),
     clean: true,
   },
-  devServer: {
-    open: true,
-    historyApiFallback: true,
-    port: 3000,
+  optimization: {
+    minimizer: [new CssMinimizerPlugin()],
+    splitChunks: {
+      chunks: "all",
+    },
   },
   stats: "errors-warnings",
-  devtool: "inline-source-map",
   plugins: [
     new HtmlWebpackPlugin({
       template: "./src/index.html",
@@ -35,21 +40,46 @@ module.exports = {
         ],
       },
       {
-        test: /\.(js|mjs|jsx|ts|tsx)$/,
+        test: /\.js$/,
+        exclude: /node_modules/,
+        include: path.resolve(__dirname, "src"),
+        use: [babelLoader],
+      },
+      {
+        test: /\.(ts|tsx)$/,
+        exclude: /node_modules/,
+        include: path.resolve(__dirname, "src"),
         use: [
+          babelLoader,
           {
-            loader: "babel-loader",
+            loader: "ts-loader",
             options: {
-              presets: ["@babel/preset-env"],
+              transpileOnly: true,
             },
           },
-          { loader: "ts-loader" },
         ],
-        exclude: /node_modules/,
       },
     ],
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".js", ".jsx"],
+    extensions: [".ts", ".tsx", ".js"],
   },
+};
+
+const devModeCofig = {
+  mode: "development",
+  devtool: "inline-source-map",
+  devServer: {
+    open: true,
+    historyApiFallback: true,
+    port: 3000,
+  },
+};
+
+module.exports = (_, argv) => {
+  if (argv.mode === "production") {
+    return { mode: "production", ...baseConfig };
+  }
+
+  return { ...baseConfig, ...devModeCofig };
 };
