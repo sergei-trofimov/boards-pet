@@ -20,6 +20,7 @@ module.exports = {
       rules: {
         "@typescript-eslint/no-var-requires": "off",
         "@typescript-eslint/no-unused-vars": "warn",
+        "@typescript-eslint/no-non-null-assertion": "off",
         "no-console": "error",
         "no-undef": "off",
         semi: "error",
