@@ -8,7 +8,8 @@
     "build": "webpack --mode production",
     "lint": "eslint --ext ts,tsx src",
     "test": "npx jest --watch --transformIgnorePatterns \"node_modules/(?!ui-core)/\" --env=jsdom",
-    "test-single-run": "npx jest --transformIgnorePatterns \"node_modules/(?!ui-core)/\" --env=jsdom"
+    "test-single-run": "npx jest --transformIgnorePatterns \"node_modules/(?!ui-core)/\" --env=jsdom",
+    "deploy": "webpack --mode production && surge --project ./public --domain pointless-humor.surge.sh"
   },
   "keywords": [],
   "author": "Serhii Trofimov",
