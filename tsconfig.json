@@ -1,20 +1,17 @@
 {
   "compilerOptions": {
+    "allowJs": false,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "jsx": "react",
+    "lib": ["es2020", "dom"],
+    "module": "es2020",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
     "outDir": "./public/",
     "sourceMap": true,
-    "noImplicitAny": true,
-    "target": "ES5",
-    "module": "es2020",
-    "jsx": "react",
-    "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": false,
-    "noImplicitReturns": false,
-    "strictNullChecks": false,
-    "allowJs": true,
-    "moduleResolution": "node",
-    "lib": ["es2018", "es2020", "dom", "dom.iterable"],
-    "esModuleInterop": true
+    "strict": true,
+    "target": "ES2022",
   },
-  "exclude": ["node_modules"]
 }

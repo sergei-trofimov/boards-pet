@@ -46,6 +46,10 @@ const baseConfig = {
         use: [babelLoader],
       },
       {
+        test: /\.(woff|woff2|eot|ttf|otf)$/i,
+        type: 'asset/resource',
+      },
+      {
         test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
         include: path.resolve(__dirname, 'src'),
@@ -68,7 +72,7 @@ const baseConfig = {
 
 const devModeCofig = {
   mode: 'development',
-  devtool: 'inline-source-map',
+  devtool: 'source-map',
   devServer: {
     open: true,
     historyApiFallback: true,
