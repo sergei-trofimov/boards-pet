@@ -3,7 +3,7 @@
     "allowJs": false,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "lib": ["es2020", "dom"],
     "module": "es2020",
     "moduleResolution": "node",
@@ -14,4 +14,5 @@
     "strict": true,
     "target": "ES2022",
   },
+  "extends": "./tsconfig.paths.json"
 }

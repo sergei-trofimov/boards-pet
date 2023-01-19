@@ -35,6 +35,7 @@ module.exports = {
         'no-console': 'error',
         'no-undef': 'off',
         quotes: ['error', 'single'],
+        'react/react-in-jsx-scope': 'off',
         'no-empty-pattern': 'error',
         'sort-imports': [
           'warn',

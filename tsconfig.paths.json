@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@models/store": ["src/models/store/index.ts"],
+      "app-store": ["src/store/index.ts"],
+      "auth-state": ["src/store/auth/index.ts"]
+    }
+  }
+}
