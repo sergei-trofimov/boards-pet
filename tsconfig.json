@@ -10,8 +10,10 @@
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "outDir": "./public/",
+    "resolveJsonModule": true,
     "sourceMap": true,
     "strict": true,
+    "strictNullChecks": false,
     "target": "ES2022",
   },
   "extends": "./tsconfig.paths.json"

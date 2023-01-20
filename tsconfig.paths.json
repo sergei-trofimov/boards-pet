@@ -2,9 +2,13 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@models/store": ["src/models/store/index.ts"],
-      "app-store": ["src/store/index.ts"],
-      "auth-state": ["src/store/auth/index.ts"]
+      "@Models/store/*": ["src/models/store/*"],
+      "@Models/animations/*": ["src/models/animations/*"],
+      "@Animations": ["src/assets/animations"],
+      "@Pages": ["src/pages/"],
+      "@App-store": ["src/store/"],
+      "@Auth-state/*": ["src/store/auth/*"],
+      "@Common": ["src/components/common"]
     }
   }
 }

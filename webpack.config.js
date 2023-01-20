@@ -1,7 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const tsConfig = require('./tsconfig.paths.json');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 const babelLoader = {
   loader: 'babel-loader',
@@ -36,6 +36,7 @@ const baseConfig = {
           'style-loader',
           // Translates CSS into CommonJS
           'css-loader',
+          'postcss-loader',
           // Compiles Sass to CSS
           'sass-loader',
         ],
@@ -67,14 +68,10 @@ const baseConfig = {
     ],
   },
   resolve: {
+    plugins: [new TsconfigPathsPlugin({
+      configFile: 'tsconfig.paths.json'
+    })],
     extensions: ['.ts', '.tsx', '.js'],
-    alias: Object.keys(tsConfig.compilerOptions.paths).reduce((aliases, aliasName) => {
-      const aliasPath = path.resolve(__dirname, tsConfig.compilerOptions.paths[aliasName][0]);
-      return {
-        ...aliases,
-        [aliasName]: aliasPath,
-      }
-    }, {})
   },
 };
 
