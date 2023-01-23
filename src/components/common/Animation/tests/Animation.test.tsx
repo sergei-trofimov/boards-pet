@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
-import Animation from '../Animation';
+import { Animation } from '../Animation';
 import { AnimationProps } from '../types';
-import { AnimationsName } from '@Models/animations/animations.model';
+import { AnimationsName } from '@Constants/animations-name.constant';
 
 jest.mock('lottie-react', () => ({
   useLottie: () => ({

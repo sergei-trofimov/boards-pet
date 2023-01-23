@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
-import NotFoundPage from '../NotFound';
+import { NotFoundPage } from '../NotFoundPage';
 
-jest.mock('@Common', () => ({
+jest.mock('@Common/Animation/Animation', () => ({
   Animation: () => {
     return <p>My Animation</p>;
   },

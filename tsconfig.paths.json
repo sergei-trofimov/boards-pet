@@ -4,11 +4,12 @@
     "paths": {
       "@Models/store/*": ["src/models/store/*"],
       "@Models/animations/*": ["src/models/animations/*"],
+      "@Constants/*": ["src/constants/*"],
       "@Animations": ["src/assets/animations"],
-      "@Pages": ["src/pages/"],
+      "@Pages/*": ["src/pages/*"],
       "@App-store": ["src/store/"],
       "@Auth-state/*": ["src/store/auth/*"],
-      "@Common": ["src/components/common"]
+      "@Common/*": ["src/components/common/*"]
     }
   }
 }

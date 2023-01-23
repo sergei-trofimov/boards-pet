@@ -1,7 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
+import { RouteObject } from 'react-router-dom';
 
-jest.mock('./Router', () => [{ path: '/', element: <p>Home Page</p> }]);
+jest.mock('./Router', (): { routerConfig: RouteObject[] } => ({
+  routerConfig: [{ path: '/', element: <p>Home Page</p> }],
+}));
 describe('App component', () => {
   const renderComponent = () => render(<App />);
 

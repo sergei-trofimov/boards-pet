@@ -1,8 +1,8 @@
-import { Animation } from '@Common';
-import { AnimationsName } from '@Models/animations/animations.model';
+import { Animation } from '@Common/Animation/Animation';
+import { AnimationsName } from '@Constants/animations-name.constant';
 import { FC } from 'react';
 
-const NotFoundPage: FC = () => {
+export const NotFoundPage: FC = () => {
   return (
     <div className="flex flex-col w-full h-screen -translate-y-24 gap-y-1 items-center justify-center font-secondary">
       <Animation animationName={AnimationsName.NOT_FOUND} />
@@ -11,5 +11,3 @@ const NotFoundPage: FC = () => {
     </div>
   );
 };
-
-export default NotFoundPage;

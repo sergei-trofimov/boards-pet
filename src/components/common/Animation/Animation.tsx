@@ -1,14 +1,15 @@
-import { AnimationsMappingType, AnimationsName } from '@Models/animations/animations.model';
 import { LottieOptions, useLottie } from 'lottie-react';
 import { AnimationProps } from './types';
+import { AnimationsMappingType } from '@Models/animations/animations.model';
+import { AnimationsName } from '@Constants/animations-name.constant';
 import { FC } from 'react';
-import { NotFound } from '@Animations';
+import NotFound from '@Animations';
 
 const animationsMapping: AnimationsMappingType = {
   [AnimationsName.NOT_FOUND]: NotFound,
 };
 
-const Animation: FC<AnimationProps> = ({ animationConfig, animationName }) => {
+export const Animation: FC<AnimationProps> = ({ animationConfig, animationName }) => {
   const options: LottieOptions = {
     loop: true,
     ...animationConfig,
@@ -19,5 +20,3 @@ const Animation: FC<AnimationProps> = ({ animationConfig, animationName }) => {
 
   return <>{View}</>;
 };
-
-export default Animation;
