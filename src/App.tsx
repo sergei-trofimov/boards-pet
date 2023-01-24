@@ -1,7 +1,11 @@
-import React, { FC } from 'react';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { FC } from 'react';
+import { routerConfig } from './Router';
 
-const App: FC = (): JSX.Element => {
-  return <div>Hello World!</div>;
+export const router = createBrowserRouter(routerConfig);
+
+const App: FC = () => {
+  return <RouterProvider router={router} />;
 };
 
 export default App;

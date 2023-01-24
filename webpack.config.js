@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 const babelLoader = {
   loader: 'babel-loader',
@@ -35,6 +36,7 @@ const baseConfig = {
           'style-loader',
           // Translates CSS into CommonJS
           'css-loader',
+          'postcss-loader',
           // Compiles Sass to CSS
           'sass-loader',
         ],
@@ -66,6 +68,9 @@ const baseConfig = {
     ],
   },
   resolve: {
+    plugins: [new TsconfigPathsPlugin({
+      configFile: 'tsconfig.paths.json'
+    })],
     extensions: ['.ts', '.tsx', '.js'],
   },
 };
@@ -80,9 +85,18 @@ const devModeCofig = {
   },
 };
 
+const prodModeConfig = {
+  mode: 'production',
+  performance: {
+    hints: false,
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000
+}
+}
+
 module.exports = (_, argv) => {
   if (argv.mode === 'production') {
-    return { mode: 'production', ...baseConfig };
+    return { ...baseConfig, ...prodModeConfig };
   }
 
   return { ...baseConfig, ...devModeCofig };
