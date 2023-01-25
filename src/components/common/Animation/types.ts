@@ -1,7 +1,7 @@
-import { AnimationConfig } from 'lottie-web';
 import { AnimationsMappingType } from '@Models/animations/animations.model';
+import { LottieOptions } from 'lottie-react';
 
 export interface AnimationProps {
-  animationConfig?: AnimationConfig;
+  animationConfig?: Partial<LottieOptions>;
   animationName: keyof AnimationsMappingType;
 }
