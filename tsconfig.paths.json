@@ -11,7 +11,8 @@
       "@App-store": ["src/store/"],
       "@Auth-state/*": ["src/store/auth/*"],
       "@Common/*": ["src/components/common/*"],
-      "@Components/*": ["src/components/*"]
+      "@Components/*": ["src/components/*"],
+      "@Utils/*": ["src/utils/*"]
     }
   }
 }
