@@ -1,4 +1,4 @@
-import AuthState from '@Types/store/auth.model';
+import AuthState from '@Types/store/auth-state.interface';
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState: AuthState = {
