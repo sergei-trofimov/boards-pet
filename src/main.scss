@@ -3,3 +3,32 @@
 @tailwind utilities;
 
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Sofia+Sans:ital,wght@0,100;0,400;0,700;0,900;1,400&display=swap');
+
+body,
+#root {
+  @apply h-screen;
+}
+
+.btn-primary {
+  @apply w-48 h-10 rounded-lg bg-slate-300 font-secondary font-semibold text-4xl text-slate-700;
+}
+
+.btn-secondary {
+  @apply font-secondary text-xl text-slate-500 relative px-3 after:inline-block after:h-0.5 after:w-full after:bg-slate-500 after:absolute after:left-0 after:-bottom-1;
+}
+
+.form-label {
+  @apply flex flex-col gap-y-1;
+
+  &__title {
+    @apply text-slate-700 font-bold text-xl;
+  }
+
+  &__input {
+    @apply py-1 px-3 outline-none rounded-md border border-solid border-slate-300;
+  }
+}
+
+.validation-error {
+  @apply max-w-72 text-lg text-center text-red-500;
+}

@@ -77,6 +77,22 @@ module.exports = {
         '342': '85.5rem', // 1368px
         '450': '112.5rem' // 1800px
       },
+      minWidth: theme => ({
+        ...theme('spacing'),
+        full: '100%'
+      }),
+      maxWidth: theme => ({
+        ...theme('spacing'),
+        full: '100%'
+      }),
+      minHeight: theme => ({
+        ...theme('spacing'),
+        full: '100%'
+      }),
+      maxHeight: theme => ({
+        ...theme('spacing'),
+        full: '100%'
+      }),
     },
   },
   plugins: [],

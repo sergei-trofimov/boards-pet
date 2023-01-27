@@ -4,12 +4,15 @@
     "paths": {
       "@Models/store/*": ["src/models/store/*"],
       "@Models/animations/*": ["src/models/animations/*"],
+      "@Models/routes/*": ["src/models/routes/*"],
       "@Constants/*": ["src/constants/*"],
       "@Animations": ["src/assets/animations"],
       "@Pages/*": ["src/pages/*"],
       "@App-store": ["src/store/"],
       "@Auth-state/*": ["src/store/auth/*"],
-      "@Common/*": ["src/components/common/*"]
+      "@Common/*": ["src/components/common/*"],
+      "@Components/*": ["src/components/*"],
+      "@Utils/*": ["src/utils/*"]
     }
   }
 }

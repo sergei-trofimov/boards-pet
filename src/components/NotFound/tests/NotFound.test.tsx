@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { NotFoundPage } from '../NotFoundPage';
+import { NotFound } from '../NotFound';
 
 jest.mock('@Common/Animation/Animation', () => ({
   Animation: () => {
@@ -7,7 +7,7 @@ jest.mock('@Common/Animation/Animation', () => ({
   },
 }));
 describe('NotFound component', () => {
-  const renderComponent = () => render(<NotFoundPage />);
+  const renderComponent = () => render(<NotFound />);
 
   it('should display coorect content', () => {
     // Arrange
