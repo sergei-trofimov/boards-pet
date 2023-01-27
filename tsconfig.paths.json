@@ -2,9 +2,9 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@Models/store/*": ["src/models/store/*"],
-      "@Models/animations/*": ["src/models/animations/*"],
-      "@Models/routes/*": ["src/models/routes/*"],
+      "@Types/store/*": ["src/types/store/*"],
+      "@Types/animations/*": ["src/types/animations/*"],
+      "@Types/routes/*": ["src/types/routes/*"],
       "@Constants/*": ["src/constants/*"],
       "@Animations": ["src/assets/animations"],
       "@Pages/*": ["src/pages/*"],

@@ -1,7 +1,7 @@
 import { DefaultError, NotFound } from '@Animations';
 import { LottieOptions, useLottie } from 'lottie-react';
 import { AnimationProps } from './types';
-import { AnimationsMappingType } from '@Models/animations/animations.model';
+import { AnimationsMappingType } from '@Types/animations/animations.model';
 import { AnimationsName } from '@Constants/animations-name.constant';
 import { FC } from 'react';
 
