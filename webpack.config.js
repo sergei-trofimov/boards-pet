@@ -2,11 +2,19 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const dotenv = require('dotenv');
+const webpack = require('webpack');
 
 const babelLoader = {
   loader: 'babel-loader',
   options: { cacheDirectory: true, presets: ['@babel/preset-react'] },
 };
+
+const env = dotenv.config().parsed;
+const envKeys = Object.keys(env).reduce((prev, next) => {
+  prev[next] = JSON.stringify(env[next]);
+  return prev;
+}, {});
 
 const baseConfig = {
   entry: './src/index.tsx',
@@ -26,6 +34,11 @@ const baseConfig = {
     new HtmlWebpackPlugin({
       template: './src/index.html',
     }),
+    new webpack.DefinePlugin({
+      process: {
+        env: {...envKeys}
+      }
+    })
   ],
   module: {
     rules: [
