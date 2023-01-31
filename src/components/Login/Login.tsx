@@ -11,9 +11,9 @@ export const Login: FC = () => {
 
   useEffect(() => {
     if (errorData && 'message' in errorData) {
-      setErrorMessage(AuthErrorMapper[errorData.message])
+      setErrorMessage(AuthErrorMapper[errorData.message]);
     }
-  }, [errorData, errorMessage])
+  }, [errorData, errorMessage]);
 
   return (
     <div className="h-full flex items-center">
@@ -35,11 +35,7 @@ export const Login: FC = () => {
             Log In
           </Button>
         </Form>
-        {errorMessage && (
-          <span className="validation-error">
-            {errorMessage}
-          </span>
-        )}
+        {errorMessage && <span className="validation-error">{errorMessage}</span>}
       </Card>
     </div>
   );

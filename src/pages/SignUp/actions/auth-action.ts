@@ -44,7 +44,6 @@ export async function action({ request }: { request: Request }): Promise<AuthRep
     localStorage.setItem(LocalStorageKeys.LOCAL_ID, localId);
 
     return { email: data.email, expiresIn, idToken, localId };
-
   } catch (error) {
     const { message } = (error as AxiosError<{ error: { code: number; message: string } }>).response.data.error;
 

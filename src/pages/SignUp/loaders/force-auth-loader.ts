@@ -9,7 +9,7 @@ export async function loader(): Promise<AuthReponse | null> {
 
   if (idToken) {
     try {
-      const response = await axios.post<{ users: AuthReponse[]}>(
+      const response = await axios.post<{ users: AuthReponse[] }>(
         `${process.env[ENVIRONMENT_CONFIG.FIREBASE_AUTH_BASE_URL]}:${ENDPOINTS.firebase.userInfo}?key=${
           process.env[ENVIRONMENT_CONFIG.FIREBASE_API_KEY]
         }`,

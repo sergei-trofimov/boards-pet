@@ -4,7 +4,7 @@ import AuthState from '@Types/store/auth-state.interface';
 
 const initialState: AuthState = {
   isAuth: false,
-  authData: null
+  authData: null,
 };
 
 const authSlice = createSlice({

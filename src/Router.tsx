@@ -24,9 +24,7 @@ export const routerConfig: RouteObject[] = [
       {
         path: '/',
         element: <AuthRoutesGuard />,
-        children: [
-          { path: '/', element: <HomePage />, children: [{ index: true, element: <Home /> }] },
-        ],
+        children: [{ path: '/', element: <HomePage />, children: [{ index: true, element: <Home /> }] }],
       },
       { path: AppRoutes.logout, action: LogoutAction },
       { path: AppRoutes.login, element: <LoginPage />, action: AuthAction },

@@ -4,6 +4,6 @@ export const ENDPOINTS: Endpoints = {
   firebase: {
     login: 'signInWithPassword',
     signup: 'signUp',
-    userInfo: 'lookup'
+    userInfo: 'lookup',
   },
 };

@@ -8,7 +8,7 @@ export const Home: FC = () => {
     <div>
       <p>Home Component</p>
       <Form method="post" action={AppRoutes.logout}>
-        <Button primary classNames='max-w-23' type='submit'>
+        <Button primary classNames="max-w-23" type="submit">
           Logout
         </Button>
       </Form>
