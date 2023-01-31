@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
 import { ButtonClassesMapperType, ButtonProps, ButtonRole } from './types';
 import { FC, PropsWithChildren } from 'react';
 import { buildClassesByAttributes } from '@Utils/build-classes-by-attributes.function';

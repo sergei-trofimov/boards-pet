@@ -5,6 +5,7 @@
       "@Types/store/*": ["src/types/store/*"],
       "@Types/animations/*": ["src/types/animations/*"],
       "@Types/routes/*": ["src/types/routes/*"],
+      "@Types/api/*": ["src/types/api/*"],
       "@Constants/*": ["src/constants/*"],
       "@Animations": ["src/assets/animations"],
       "@Pages/*": ["src/pages/*"],
