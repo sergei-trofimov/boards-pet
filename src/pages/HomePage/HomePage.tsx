@@ -1,20 +1,22 @@
 import { FC, useEffect } from 'react';
-import { Outlet, useActionData, useNavigate } from 'react-router-dom';
-import { Logout } from '@Types/api/auth-reponses.model';
-import { authActions } from '@Auth-state/auth-slice';
-import { useDispatch } from 'react-redux';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { AppRoutes } from '@Constants/app-routes';
+import { Header } from '@Components/Header/Header';
 
 export const HomePage: FC = () => {
-  const data = useActionData() as Logout | null;
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   useEffect(() => {
-    if (data && data?.mode === 'delete') {
-      dispatch(authActions.logout());
-      navigate('/');
+    if (pathname === '/') {
+      navigate(AppRoutes.boards);
     }
-  }, [data, dispatch, navigate]);
+  }, [pathname, navigate]);
 
-  return <Outlet />;
+  return (
+    <>
+      <Header />
+      <Outlet />
+    </>
+  );
 };
