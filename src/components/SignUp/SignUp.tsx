@@ -1,6 +1,7 @@
 import { AuthErrorKeys, AuthErrorMapper } from '@Constants/auth-error-mapper.constant';
 import { FC, useEffect, useState } from 'react';
 import { Form, useActionData } from 'react-router-dom';
+import { AppRoutes } from '@Constants/app-routes';
 import { Button } from '@Common/Button/Button';
 import { Card } from '@Common/Card/Card';
 import { ErrorResponse } from '@Types/api/error-response.model';
@@ -22,7 +23,7 @@ export const SignUp: FC = () => {
         classNames="w-135 -mt-46 flex flex-col justify-center items-center gap-y-6 font-main py-16"
       >
         <h2 className="text-7xl font-bold">Sign Up</h2>
-        <Form method="post" className="flex flex-col gap-y-4 w-89">
+        <Form method="post" action={`/${AppRoutes.signup}`} className="flex flex-col gap-y-4 w-89">
           <label className="form-label">
             <span className="form-label__title">Email</span>
             <input className="form-label__input" type="email" name="email" required />

@@ -4,5 +4,5 @@ export const AppRoutes: AppRoutesInterface = {
   login: 'login',
   signup: 'signup',
   logout: 'logout',
-  boards: 'boards'
+  boards: 'boards',
 };

@@ -1,8 +1,11 @@
-export interface AuthReponse {
+import { User } from '@Types/entities/user';
+
+export interface AuthResponse {
   email: string;
   expiresIn: string;
   idToken: string;
   localId: string;
+  user: User;
 }
 
 export type AuthMode = 'login' | 'signup';
@@ -12,6 +15,6 @@ export interface Logout {
   mode: LogoutMode;
 }
 
-export function isAuthReponseGuard(data: AuthReponse | Response): data is AuthReponse {
-  return (data as AuthReponse)?.idToken !== undefined;
+export function isAuthResponseGuard(data: AuthResponse | Response): data is AuthResponse {
+  return (data as AuthResponse)?.idToken !== undefined;
 }

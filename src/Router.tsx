@@ -1,14 +1,14 @@
+import { BoardsPage } from '@Pages/BoardsPage/BoardsPage';
 import { AppRoutes } from '@Constants/app-routes';
 import { action as AuthAction } from '@Pages/SignUp/actions/auth-action';
 import { AuthRoutesGuard } from '@Components/routes-guard/AuthRoutesGuard/AuthRoutesGuard';
-import { loader as ForceAuthLoader } from '@Pages/SignUp/loaders/force-auth-loader';
+import { getUser, loader as ForceAuthLoader } from '@Pages/SignUp/loaders/force-auth-loader';
 import { HomePage } from '@Pages/HomePage/HomePage';
 import { LoginPage } from '@Pages/Login/LoginPage';
 import { RootErrorPage } from '@Pages/RootError/RootErrorPage';
 import { RootLayout } from '@Pages/Root/RootLayout';
 import { RouteObject } from 'react-router-dom';
 import { SignUpPage } from '@Pages/SignUp/SignUpPage';
-import { BoardsPage } from '@Pages/BoardsPage/BoardsPage';
 
 export const routerConfig: RouteObject[] = [
   {
@@ -16,9 +16,6 @@ export const routerConfig: RouteObject[] = [
     element: <RootLayout />,
     errorElement: <RootErrorPage />,
     loader: ForceAuthLoader,
-    shouldRevalidate: ({ currentUrl }) => {
-      return currentUrl.pathname === '/';
-    },
     children: [
       {
         path: '/',
@@ -28,7 +25,11 @@ export const routerConfig: RouteObject[] = [
             path: '/',
             element: <HomePage />,
             children: [
-              { path: AppRoutes.boards, element: <BoardsPage /> },
+              {
+                path: AppRoutes.boards,
+                element: <BoardsPage />,
+                // loader: getUser
+              },
             ],
           },
         ],
