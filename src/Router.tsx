@@ -1,8 +1,8 @@
-import { BoardsPage } from '@Pages/BoardsPage/BoardsPage';
 import { AppRoutes } from '@Constants/app-routes';
 import { action as AuthAction } from '@Pages/SignUp/actions/auth-action';
 import { AuthRoutesGuard } from '@Components/routes-guard/AuthRoutesGuard/AuthRoutesGuard';
-import { getUser, loader as ForceAuthLoader } from '@Pages/SignUp/loaders/force-auth-loader';
+import { BoardsPage } from '@Pages/BoardsPage/BoardsPage';
+import { loader as ForceAuthLoader } from '@Pages/SignUp/loaders/force-auth-loader';
 import { HomePage } from '@Pages/HomePage/HomePage';
 import { LoginPage } from '@Pages/Login/LoginPage';
 import { RootErrorPage } from '@Pages/RootError/RootErrorPage';
@@ -28,7 +28,6 @@ export const routerConfig: RouteObject[] = [
               {
                 path: AppRoutes.boards,
                 element: <BoardsPage />,
-                // loader: getUser
               },
             ],
           },
