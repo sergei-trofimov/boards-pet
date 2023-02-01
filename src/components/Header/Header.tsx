@@ -30,7 +30,7 @@ export const Header: FC = () => {
           Log Out
         </Button>
       </div>
-      <div className="h-10 bg-slate-100">
+      <div className="h-10 bg-slate-100 mb-6">
         <div className="flex h-full container mx-auto px-10">
           <div className="flex-grow flex justify-center items-center">
             <Button classNames="px-1">

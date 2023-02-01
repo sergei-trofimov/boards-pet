@@ -16,7 +16,7 @@ export const RootLayout: FC = () => {
     if (isAuth) {
       navigate(AppRoutes.boards);
     }
-  }, [isAuth, navigate])
+  }, [isAuth, navigate]);
 
   useEffect(() => {
     if (data) {
