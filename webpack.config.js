@@ -61,7 +61,7 @@ const baseConfig = {
         use: [babelLoader],
       },
       {
-        test: /\.(woff|woff2|eot|ttf|otf)$/i,
+        test: /\.(png|jpe?g|gif|svg|eot|ttf|woff|woff2)$/i,
         type: 'asset/resource',
       },
       {
@@ -81,9 +81,11 @@ const baseConfig = {
     ],
   },
   resolve: {
-    plugins: [new TsconfigPathsPlugin({
-      configFile: 'tsconfig.paths.json'
-    })],
+    plugins: [
+      new TsconfigPathsPlugin({
+        configFile: 'tsconfig.paths.json',
+      }),
+    ],
     extensions: ['.ts', '.tsx', '.js'],
   },
 };
@@ -103,9 +105,9 @@ const prodModeConfig = {
   performance: {
     hints: false,
     maxEntrypointSize: 512000,
-    maxAssetSize: 512000
-}
-}
+    maxAssetSize: 512000,
+  },
+};
 
 module.exports = (_, argv) => {
   if (argv.mode === 'production') {
