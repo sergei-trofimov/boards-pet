@@ -1,6 +1,6 @@
 import { AuthErrorKeys, AuthErrorMapper } from '@Constants/auth-error-mapper.constant';
 import { FC, useEffect, useState } from 'react';
-import { Form, useActionData } from 'react-router-dom';
+import { Form, useActionData, useNavigation } from 'react-router-dom';
 import { AppRoutes } from '@Constants/app-routes';
 import { Button } from '@Common/Button/Button';
 import { Card } from '@Common/Card/Card';
@@ -9,6 +9,7 @@ import { ErrorResponse } from '@Types/api/error-response.model';
 export const SignUp: FC = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const errorData = useActionData() as ErrorResponse<AuthErrorKeys>;
+  const navigation = useNavigation();
 
   useEffect(() => {
     if (errorData && 'message' in errorData) {
@@ -36,7 +37,7 @@ export const SignUp: FC = () => {
             <span className="form-label__title">Repeat Password</span>
             <input className="form-label__input" type="password" name="repeatPassword" minLength={6} required />
           </label>
-          <Button horizontalCentered primary classNames="mt-4" type="submit">
+          <Button loading={navigation.state !== 'idle'} horizontalCentered primary classNames="mt-4" type="submit">
             Sign Up
           </Button>
         </Form>

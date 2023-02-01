@@ -31,7 +31,11 @@ export const Button: FC<PropsWithChildren<ButtonProps>> = ({
 
   return (
     <button disabled={loading} type={type} className={classes} onClick={onClickHandler || null}>
-      {loading ? <Animation animationName={AnimationsName.CIRCLE_LOADER} animationConfig={animationConfig} /> : children}
+      {loading ? (
+        <Animation animationName={AnimationsName.CIRCLE_LOADER} animationConfig={animationConfig} />
+      ) : (
+        children
+      )}
     </button>
   );
 };
