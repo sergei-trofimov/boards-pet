@@ -1,4 +1,4 @@
-import { AnimationsMappingType } from '@Models/animations/animations.model';
+import { AnimationsMappingType } from '@Types/animations/animations.model';
 import { LottieOptions } from 'lottie-react';
 
 export interface AnimationProps {

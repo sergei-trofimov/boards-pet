@@ -1,5 +1,5 @@
 import { isRouteErrorResponse, useRouteError } from 'react-router';
-import { DefaultErrorPage } from '@Components/DefaultErrorPage/DefaultErrorPage';
+import { DefaultErrorPage } from '@Pages/DefaultErrorPage/DefaultErrorPage';
 import { NotFound } from '@Components/NotFound/NotFound';
 
 export const RootErrorPage = () => {
