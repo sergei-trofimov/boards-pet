@@ -11,12 +11,15 @@
       "@Animations": ["src/assets/animations"],
       "@Icons": ["src/assets/icons"],
       "@Pages/*": ["src/pages/*"],
-      "@App-store": ["src/store/"],
+      "@App-store/*": ["src/store/*"],
       "@Auth-state/*": ["src/store/auth/*"],
+      "@Boards-state/*": ["src/store/boards/*"],
       "@Common/*": ["src/components/common/*"],
       "@Components/*": ["src/components/*"],
       "@Components/routes-guard/*": ["src/components/RoutesGuard/*"],
-      "@Utils/*": ["src/utils/*"]
+      "@Utils/*": ["src/utils/*"],
+      "@Thunks/*": ["src/constants/thunks/*"],
+      "@Helpers/api/*": ["src/helpers/api/*"]
     }
   }
 }

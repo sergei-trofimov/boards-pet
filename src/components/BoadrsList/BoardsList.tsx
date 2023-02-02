@@ -1,11 +1,14 @@
 import { BoardsItem } from '@Components/BoardsItem/BoardsItem';
+import { Board } from '@Types/entities/board.model';
 import { FC } from 'react';
 
-export const BoardsList: FC = () => {
+export const BoardsList: FC = ({ boards }) => {
   return (
     <div>
       {/* temporary stub value */}
-      {new Array(5).fill('').map((_, i) => <BoardsItem key={i} />)}
+      {boards.map((board: Board) => (
+        <BoardsItem key={board.id} title={board.title} />
+      ))}
     </div>
   );
 };
