@@ -6,4 +6,8 @@ export const ENDPOINTS: Endpoints = {
     signup: 'signUp',
     userInfo: 'lookup',
   },
+  db: {
+    users: 'users',
+    boards: 'boards',
+  },
 };

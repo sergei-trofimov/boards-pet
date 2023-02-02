@@ -4,4 +4,8 @@ export interface Endpoints {
     signup: string;
     userInfo: string;
   };
+  db: {
+    users: string;
+    boards: string;
+  };
 }
