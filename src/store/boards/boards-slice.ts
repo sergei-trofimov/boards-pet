@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { addBoardsThunk, fetchBoardsThunk } from './thunks/boards';
+import { addBoardsThunk, editBoardThunk, fetchBoardsThunk, removeBoardThunk } from './thunks/boards';
 import { Board } from '@Types/entities/board.model';
 import BoardsState from '@Types/store/boards-state.interface';
 
@@ -38,6 +38,32 @@ export const boardsSlice = createSlice({
     builder.addCase(addBoardsThunk.fulfilled, (state, { payload }: PayloadAction<Board>) => {
       state.isLoading = false;
       state.boards.push(payload);
+    });
+
+    builder.addCase(removeBoardThunk.pending, (state) => {
+      state.isLoading = true;
+      state.error = null;
+    });
+    builder.addCase(removeBoardThunk.rejected, (state, { payload }) => {
+      state.isLoading = false;
+      state.error = payload as string;
+    });
+    builder.addCase(removeBoardThunk.fulfilled, (state, { payload }: PayloadAction<string>) => {
+      state.isLoading = false;
+      state.boards = state.boards.filter(({ id }) => id !== payload);
+    });
+
+    builder.addCase(editBoardThunk.pending, (state) => {
+      state.isLoading = true;
+      state.error = null;
+    });
+    builder.addCase(editBoardThunk.rejected, (state, { payload }) => {
+      state.isLoading = false;
+      state.error = payload as string;
+    });
+    builder.addCase(editBoardThunk.fulfilled, (state, { payload }: PayloadAction<Board>) => {
+      state.isLoading = false;
+      state.boards = [...state.boards.filter(({ id }) => id !== payload.id), payload];
     });
   },
 });

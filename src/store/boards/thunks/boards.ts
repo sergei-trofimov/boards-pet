@@ -27,3 +27,26 @@ export const addBoardsThunk = createAsyncThunk<Board, Pick<Board, 'title'>>(
     }
   }
 );
+
+export const removeBoardThunk = createAsyncThunk<string, string>(
+  BoadrsThunkTypes.BOARDS_REMOVE,
+  async (id, { rejectWithValue }) => {
+    try {
+      await boardsApi.removeBoardAsync(id);
+      return id;
+    } catch (error) {
+      return rejectWithValue((error as AxiosError).message);
+    }
+  }
+);
+
+export const editBoardThunk = createAsyncThunk<Board, Board>(
+  BoadrsThunkTypes.BOARDS_EDIT,
+  async (board, { rejectWithValue }) => {
+    try {
+      return await boardsApi.editeBoardAsync(board);
+    } catch (error) {
+      return rejectWithValue((error as AxiosError).message);
+    }
+  }
+);

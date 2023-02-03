@@ -5,4 +5,5 @@ export const AppRoutes: AppRoutesInterface = {
   signup: 'signup',
   logout: 'logout',
   boards: 'boards',
+  editBoard: 'boards/:boardId/edit',
 };
