@@ -23,6 +23,9 @@ module.exports = {
       'xxl': ['68px', '150%'],
     },
     extend: {
+      gridTemplateColumns: {
+        'auto': 'repeat(auto-fill, minmax(284px, 1fr))'
+      },
       spacing: {
         'inherit': 'inherit',
         '4.5': '1.125rem', // 18px
@@ -75,23 +78,28 @@ module.exports = {
         '200': '50rem', // 800px
         '250': '62.5rem', // 1000px
         '342': '85.5rem', // 1368px
-        '450': '112.5rem' // 1800px
+        '450': '112.5rem', // 1800px
+        '9/10': '90%'
       },
       minWidth: theme => ({
         ...theme('spacing'),
-        full: '100%'
+        full: '100%',
+        '9/10': '90%'
       }),
       maxWidth: theme => ({
         ...theme('spacing'),
-        full: '100%'
+        full: '100%',
+        '9/10': '90%'
       }),
       minHeight: theme => ({
         ...theme('spacing'),
-        full: '100%'
+        full: '100%',
+        '9/10': '90%'
       }),
       maxHeight: theme => ({
         ...theme('spacing'),
-        full: '100%'
+        full: '100%',
+        '9/10': '90%'
       }),
     },
   },

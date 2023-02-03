@@ -1,6 +1,7 @@
 import { AppRoutes } from '@Constants/app-routes';
 import { action as AuthAction } from '@Pages/SignUp/actions/auth-action';
 import { AuthRoutesGuard } from '@Components/routes-guard/AuthRoutesGuard/AuthRoutesGuard';
+import { BoardEdit } from '@Components/Board/BoardEdit/BoardEdit';
 import { BoardsPage } from '@Pages/BoardsPage/BoardsPage';
 import { loader as ForceAuthLoader } from '@Pages/SignUp/loaders/force-auth-loader';
 import { HomePage } from '@Pages/HomePage/HomePage';
@@ -28,6 +29,10 @@ export const routerConfig: RouteObject[] = [
               {
                 path: AppRoutes.boards,
                 element: <BoardsPage />,
+              },
+              {
+                path: AppRoutes.editBoard,
+                element: <BoardEdit />,
               },
             ],
           },

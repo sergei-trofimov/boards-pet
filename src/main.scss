@@ -4,9 +4,18 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Sofia+Sans:ital,wght@0,100;0,400;0,700;0,900;1,400&display=swap');
 
+* {
+  @apply box-border;
+}
+
+html,
 body,
 #root {
-  @apply h-screen;
+  @apply h-full overflow-hidden;
+}
+
+#root {
+  @apply flex flex-col;
 }
 
 .btn-primary {
