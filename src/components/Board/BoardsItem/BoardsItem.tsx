@@ -32,7 +32,7 @@ export const BoardsItem: FC<BoardsItemProps> = ({ board }) => {
           </Button>
         </div>
       </div>
-      <p className="text-base">Total amount of cards: {1}</p>
+      <p className="text-base">Total amount of cards: {board?.cardsId || 0}</p>
       <Button primary classNames="min-w-full">
         More
       </Button>
