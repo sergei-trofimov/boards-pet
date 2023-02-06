@@ -2,7 +2,7 @@ import { TypedUseSelectorHook, useSelector } from 'react-redux';
 import { authReducer } from '@Auth-state/auth-slice';
 import { boardsReducer } from '@Boards-state/boards-slice';
 import { cardsReducer } from './cards/reducer';
-import { configureStore} from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
 
 const store = configureStore({
