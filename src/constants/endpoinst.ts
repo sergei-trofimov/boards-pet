@@ -9,5 +9,6 @@ export const ENDPOINTS: Endpoints = {
   db: {
     users: 'users',
     boards: 'boards',
+    cards: 'cards',
   },
 };
