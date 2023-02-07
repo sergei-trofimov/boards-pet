@@ -5,7 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { AppRoutes } from '@Constants/app-routes';
 import { Board } from '@Types/entities/board.model';
 import { Button } from '@Common/Button/Button';
-import { Card } from '@Common/Card/Card';
+import { CardUI } from '@Common/CardUI/CardUI';
 
 export const BoardEdit: FC = () => {
   const dispatch = useAppDispatch();
@@ -25,7 +25,7 @@ export const BoardEdit: FC = () => {
   };
 
   return (
-    <Card horizontalCentered classNames="w-96 flex flex-col gap-y-2 justify-center items-center">
+    <CardUI horizontalCentered classNames="w-96 flex flex-col gap-y-2 justify-center items-center">
       <form onSubmit={handleFormSubmit} className="flex flex-col min-w-9/10 gap-y-4 items-center py-8">
         <h4 className="font-main font-bold text-4xl text-slate-600">
           {isEditMode ? 'Update board title' : 'Create name of board'}
@@ -41,6 +41,6 @@ export const BoardEdit: FC = () => {
           Save
         </Button>
       </form>
-    </Card>
+    </CardUI>
   );
 };

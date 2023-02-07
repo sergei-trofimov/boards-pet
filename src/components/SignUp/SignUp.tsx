@@ -3,7 +3,7 @@ import { FC, useEffect, useState } from 'react';
 import { Form, useActionData, useNavigation } from 'react-router-dom';
 import { AppRoutes } from '@Constants/app-routes';
 import { Button } from '@Common/Button/Button';
-import { Card } from '@Common/Card/Card';
+import { CardUI } from '@Common/CardUI/CardUI';
 import { ErrorResponse } from '@Types/api/error-response.model';
 
 export const SignUp: FC = () => {
@@ -19,7 +19,7 @@ export const SignUp: FC = () => {
 
   return (
     <div className="h-full flex items-center">
-      <Card
+      <CardUI
         horizontalCentered
         classNames="w-135 -mt-46 flex flex-col justify-center items-center gap-y-6 font-main py-16"
       >
@@ -42,7 +42,7 @@ export const SignUp: FC = () => {
           </Button>
         </Form>
         {errorMessage && <span className="validation-error">{errorMessage}</span>}
-      </Card>
+      </CardUI>
     </div>
   );
 };

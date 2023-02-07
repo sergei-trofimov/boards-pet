@@ -2,7 +2,7 @@ import { bin, pencil } from '@Icons';
 import { AppRoutes } from '@Constants/app-routes';
 import { BoardsItemProps } from './types';
 import { Button } from '@Common/Button/Button';
-import { Card } from '@Common/Card/Card';
+import { CardUI } from '@Common/CardUI/CardUI';
 import { FC } from 'react';
 import { removeBoardThunk } from '@App-store/boards/thunks/boards';
 import { useAppDispatch } from '@App-store/store';
@@ -18,7 +18,7 @@ export const BoardsItem: FC<BoardsItemProps> = ({ board }) => {
   };
 
   return (
-    <Card classNames="font-main p-4 flex flex-col gap-y-4">
+    <CardUI classNames="font-main p-4 flex flex-col gap-y-4">
       <div className="flex justify-between items-center">
         <h3 title={title} className="font-bold text-4xl text-slate-800">
           {title}
@@ -32,10 +32,14 @@ export const BoardsItem: FC<BoardsItemProps> = ({ board }) => {
           </Button>
         </div>
       </div>
-      <p className="text-base">Total amount of cards: {board?.cardsId || 0}</p>
-      <Button primary classNames="min-w-full">
+      <p className="text-base">Total amount of cards: {board?.relatedCardsId?.length || 0}</p>
+      <Button
+        primary
+        classNames="min-w-full"
+        onClickHandler={() => navigate(`/${AppRoutes.cards.replace(':boardId', id)}`)}
+      >
         More
       </Button>
-    </Card>
+    </CardUI>
   );
 };
