@@ -11,7 +11,7 @@ import { HomePage } from '@Pages/HomePage/HomePage';
 import { LoginPage } from '@Pages/Login/LoginPage';
 import { RootErrorPage } from '@Pages/RootError/RootErrorPage';
 import { RootLayout } from '@Pages/Root/RootLayout';
-import { RouteObject } from 'react-router-dom';
+import { redirect, RouteObject } from 'react-router-dom';
 import { SignUpPage } from '@Pages/SignUp/SignUpPage';
 
 export const routerConfig: RouteObject[] = [
@@ -32,6 +32,10 @@ export const routerConfig: RouteObject[] = [
               {
                 path: AppRoutes.boards,
                 element: <BoardsPage />,
+              },
+              {
+                path: 'boards/:boardId',
+                loader: (): Response => redirect('cards'),
               },
               {
                 path: AppRoutes.editBoard,
