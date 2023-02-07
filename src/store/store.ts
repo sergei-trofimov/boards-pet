@@ -9,7 +9,7 @@ const store = configureStore({
   reducer: {
     auth: authReducer,
     boards: boardsReducer,
-    counter: cardsReducer,
+    cards: cardsReducer,
   },
 });
 
