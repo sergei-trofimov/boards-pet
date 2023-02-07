@@ -1,5 +1,5 @@
 import './main.scss';
-
+import './utils/polyfills';
 import App from './App';
 import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom/client';
