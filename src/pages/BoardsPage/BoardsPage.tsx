@@ -2,9 +2,8 @@ import { Animation } from '@Common/Animation/Animation';
 import { AnimationsName } from '@Constants/animations-name.constant';
 import { AppRoutes } from '@Constants/app-routes';
 import { BoardsList } from '@Components/Board/BoadrsList/BoardsList';
-import { Card } from '@Common/Card/Card';
+import { CreateNewEntity } from '@Common/CreateNewEntity/CreateNewEntity';
 import { FC } from 'react';
-import { add } from '@Icons';
 import { useAppSelector } from '@App-store/store';
 import { useNavigate } from 'react-router-dom';
 
@@ -19,14 +18,13 @@ export const BoardsPage: FC = () => {
       ) : boards.length ? (
         <BoardsList boards={boards} />
       ) : (
-        <Card
-          horizontalCentered
+        <CreateNewEntity
+          cardClasses="w-96 h-48 flex flex-col gap-y-2 justify-center items-center cursor-pointer"
           onClickHandler={() => navigate(`/${AppRoutes.editBoard.replace(':boardId', 'new')}`)}
-          classNames="w-96 h-48 flex flex-col gap-y-2 justify-center items-center cursor-pointer"
+          horizontalCentered
         >
           <h3 className="font-main font-bold text-5xl text-slate-600">Create your first board</h3>
-          <img src={add} alt="add" />
-        </Card>
+        </CreateNewEntity>
       )}
     </div>
   );
