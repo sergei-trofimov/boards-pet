@@ -40,7 +40,7 @@ export class BoardsApi extends BaseApi {
     return await this.axiosInstance.delete<null>(url);
   }
 
-  async editeBoardAsync<T>(payload: Board): Promise<Board> {
+  async editBoardAsync<T extends Board>(payload: T): Promise<Board> {
     const url = this.buildUrl(ENVIRONMENT_CONFIG.BASE_DB_URL, true, null, (e: Endpoints) => e.db.boards, [
       this.localId,
       payload.id,
@@ -48,5 +48,14 @@ export class BoardsApi extends BaseApi {
     const { data } = await this.axiosInstance.patch<T>(url, JSON.stringify({ title: payload.title } as T));
 
     return { ...payload, ...data };
+  }
+
+  async editRelatedCardsIdAsync(payload: { relatedCardsId: string[]; id: string }): Promise<AxiosResponse<null>> {
+    const url = this.buildUrl(ENVIRONMENT_CONFIG.BASE_DB_URL, true, null, (e: Endpoints) => e.db.boards, [
+      this.localId,
+      payload.id,
+    ]);
+
+    return await this.axiosInstance.patch<null>(url, JSON.stringify({ relatedCardsId: payload.relatedCardsId }));
   }
 }

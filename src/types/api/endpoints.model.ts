@@ -7,5 +7,6 @@ export interface Endpoints {
   db: {
     users: string;
     boards: string;
+    cards: string;
   };
 }
