@@ -1,5 +1,6 @@
 export class Board {
   public id: string;
+  public cardsId: string[] = [];
 
   constructor(public userId: string, public title: string) {}
 }

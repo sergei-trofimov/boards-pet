@@ -10,4 +10,5 @@ export type CardRestProps = {
 
 export type CardProps = {
   classNames?: string;
+  onClickHandler?: () => void;
 } & CardRestProps;

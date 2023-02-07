@@ -1,4 +1,5 @@
 import { Board, BoardRequestPayload, BoardResponse } from '@Types/entities/board.model';
+import { AxiosResponse } from 'axios';
 import { BaseApi } from './base-api';
 import { CreateEntityResponse } from '@Types/api/create-entity-response.model';
 import { ENVIRONMENT_CONFIG } from '@Constants/env-config.constant';
@@ -16,7 +17,7 @@ export class BoardsApi extends BaseApi {
   }
 
   async createBoardAsync(payload: Pick<Board, 'title'>): Promise<Board> {
-    const body: BoardRequestPayload = { ...payload, userId: this.localId };
+    const body: BoardRequestPayload = new Board(this.localId, payload.title);
     const url = this.buildUrl(ENVIRONMENT_CONFIG.BASE_DB_URL, true, null, (e: Endpoints) => e.db.boards, this.localId);
     const { data } = await this.axiosInstance.post<CreateEntityResponse>(url, JSON.stringify(body));
 
@@ -29,5 +30,23 @@ export class BoardsApi extends BaseApi {
     const boards: Board[] = Object.keys(data).map((id) => ({ id, ...data[id] }));
 
     return boards;
+  }
+
+  async removeBoardAsync(id: string): Promise<AxiosResponse<null>> {
+    const url = this.buildUrl(ENVIRONMENT_CONFIG.BASE_DB_URL, true, null, (e: Endpoints) => e.db.boards, [
+      this.localId,
+      id,
+    ]);
+    return await this.axiosInstance.delete<null>(url);
+  }
+
+  async editeBoardAsync<T>(payload: Board): Promise<Board> {
+    const url = this.buildUrl(ENVIRONMENT_CONFIG.BASE_DB_URL, true, null, (e: Endpoints) => e.db.boards, [
+      this.localId,
+      payload.id,
+    ]);
+    const { data } = await this.axiosInstance.patch<T>(url, JSON.stringify({ title: payload.title } as T));
+
+    return { ...payload, ...data };
   }
 }

@@ -1,15 +1,20 @@
-import { FC, useCallback } from 'react';
-import { cards, logo } from '@Icons';
+import { FC, useCallback, useEffect } from 'react';
+import { add, cards } from '@Icons';
 import { Button } from '@Common/Button/Button';
 import { ENVIRONMENT_CONFIG } from '@Constants/env-config.constant';
 import { LocalStorageKeys } from '@Constants/local-storage-keys.constant';
 import { authActions } from '@Auth-state/auth-slice';
-import { useDispatch } from 'react-redux';
+import { fetchBoardsThunk } from '@App-store/boards/thunks/boards';
+import { useAppDispatch } from '@App-store/store';
 import { useNavigate } from 'react-router-dom';
 
 export const Header: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch(fetchBoardsThunk());
+  }, [dispatch]);
 
   const handleLogoutClick = useCallback(() => {
     localStorage.removeItem(LocalStorageKeys.ID_TOKEN);
@@ -22,7 +27,7 @@ export const Header: FC = () => {
 
   return (
     <>
-      <div className="flex justify-between items-center mx-auto container px-10 h-17">
+      <div className="flex justify-between items-center mx-auto container px-10 my-3">
         <div className="h-9 w-9 rounded-full overflow-hidden">
           <img src={process.env[ENVIRONMENT_CONFIG.RANDOM_AVATAR]} alt="avatar" />
         </div>
@@ -34,7 +39,7 @@ export const Header: FC = () => {
         <div className="flex h-full container mx-auto px-10">
           <div className="flex-grow flex justify-center items-center">
             <Button classNames="px-1">
-              <img src={logo} alt="add" />
+              <img src={add} alt="add" />
             </Button>
             <Button classNames="px-1">
               <img src={cards} alt="add" />

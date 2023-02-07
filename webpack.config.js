@@ -20,7 +20,7 @@ const baseConfig = {
   entry: './src/index.tsx',
   output: {
     filename: '[name].bundle.js',
-    path: path.resolve(__dirname, 'public'),
+    path: path.join(__dirname, 'public'),
     clean: true,
   },
   optimization: {
@@ -36,9 +36,10 @@ const baseConfig = {
     }),
     new webpack.DefinePlugin({
       process: {
-        env: {...envKeys}
-      }
-    })
+        env: { ...envKeys },
+      },
+    }),
+    new CssMinimizerPlugin()
   ],
   module: {
     rules: [
