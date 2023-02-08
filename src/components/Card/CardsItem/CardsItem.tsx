@@ -1,5 +1,4 @@
 import { bin, pencil } from '@Icons';
-import { AppRoutes } from '@Constants/app-routes';
 import { Button } from '@Common/Button/Button';
 import { CardUI } from '@Common/CardUI/CardUI';
 import { CardsItemProps } from './types';
@@ -32,10 +31,6 @@ export const CardsItem: FC<CardsItemProps> = ({ card }) => {
           </Button>
         </div>
       </div>
-
-      {/* <Button primary classNames="min-w-full" onClickHandler={() => navigate(`/${AppRoutes.cards.replace(':boardId', id)}`)}>
-        More
-      </Button> */}
     </CardUI>
   );
 };

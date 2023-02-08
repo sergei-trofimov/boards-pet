@@ -8,4 +8,5 @@ export const AppRoutes: AppRoutesInterface = {
   editBoard: 'boards/:boardId/edit',
   cards: 'boards/:boardId/cards',
   editCard: ':cardId/edit',
+  newField: 'new-field',
 };

@@ -6,4 +6,5 @@ export interface AppRoutesInterface {
   editBoard: string;
   cards: string;
   editCard: string;
+  newField: string;
 }
