@@ -17,9 +17,11 @@
       "@Common/*": ["src/components/common/*"],
       "@Components/*": ["src/components/*"],
       "@Components/routes-guard/*": ["src/components/RoutesGuard/*"],
+      "@Components/builders/*": ["src/components/Field/Builders/*"],
       "@Utils/*": ["src/utils/*"],
       "@Thunks/*": ["src/constants/thunks/*"],
-      "@Helpers/api/*": ["src/helpers/api/*"]
+      "@Helpers/api/*": ["src/helpers/api/*"],
+      "@Helpers/forms/*": ["src/helpers/forms/*"]
     }
   }
 }

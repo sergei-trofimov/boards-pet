@@ -1,16 +1,16 @@
-import { CreateFieldCTAs } from '@Components/Field/NewField/types';
+import { CreateFieldCTAs, FieldTypeEnum } from '@Components/Field/NewField/types';
 
 export const createFieldCTAs: CreateFieldCTAs = {
   text: {
-    type: 'text',
+    type: FieldTypeEnum.TEXT,
     title: 'Text',
   },
   checkbox: {
-    type: 'checkbox',
+    type: FieldTypeEnum.CHECKBOX,
     title: 'Checkbox',
   },
   select: {
-    type: 'select',
+    type: FieldTypeEnum.SELECT,
     title: 'Select',
   },
 };

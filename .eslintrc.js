@@ -37,16 +37,6 @@ module.exports = {
         quotes: ['error', 'single'],
         'react/react-in-jsx-scope': 'off',
         'no-empty-pattern': 'error',
-        'sort-imports': [
-          'warn',
-          {
-            ignoreCase: false,
-            ignoreDeclarationSort: false,
-            ignoreMemberSort: false,
-            memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single'],
-            allowSeparatedGroups: false,
-          },
-        ],
       },
     },
   ],
