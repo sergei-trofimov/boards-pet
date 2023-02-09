@@ -24,7 +24,13 @@ module.exports = {
     },
     extend: {
       gridTemplateColumns: {
-        'auto': 'repeat(auto-fill, minmax(284px, 1fr))'
+        'auto': 'repeat(auto-fill, minmax(284px, 1fr))',
+      },
+      gridTemplateRows: {
+        'min-h': 'repeat(auto-fill, minmax(124px, 1fr))'
+      },
+      gridAutoRows: {
+        'm': '124px'
       },
       spacing: {
         'inherit': 'inherit',

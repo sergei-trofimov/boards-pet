@@ -44,7 +44,7 @@ export const editBoardThunk = createAsyncThunk<Board, Board>(
   BoadrsThunkTypes.BOARDS_EDIT,
   async (board, { rejectWithValue }) => {
     try {
-      return await boardsApi.editeBoardAsync(board);
+      return await boardsApi.editBoardAsync<Board>(board);
     } catch (error) {
       return rejectWithValue((error as AxiosError).message);
     }

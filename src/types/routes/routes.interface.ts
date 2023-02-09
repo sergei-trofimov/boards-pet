@@ -4,4 +4,6 @@ export interface AppRoutesInterface {
   logout: string;
   boards: string;
   editBoard: string;
+  cards: string;
+  editCard: string;
 }

@@ -1,5 +1,6 @@
 import { FC, useCallback, useEffect } from 'react';
 import { add, cards } from '@Icons';
+import { AppRoutes } from '@Constants/app-routes';
 import { Button } from '@Common/Button/Button';
 import { ENVIRONMENT_CONFIG } from '@Constants/env-config.constant';
 import { LocalStorageKeys } from '@Constants/local-storage-keys.constant';
@@ -45,8 +46,8 @@ export const Header: FC = () => {
               <img src={cards} alt="add" />
             </Button>
           </div>
-          <Button primary classNames="max-w-24">
-            Manage
+          <Button primary classNames="max-w-24" onClickHandler={() => navigate(AppRoutes.boards)}>
+            Boards
           </Button>
         </div>
       </div>

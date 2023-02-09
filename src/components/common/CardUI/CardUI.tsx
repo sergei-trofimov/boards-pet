@@ -7,7 +7,7 @@ const CardClassesMapper: CardClassesMapperType = {
   horizontalCentered: 'mx-auto',
 };
 
-export const Card: FC<PropsWithChildren<CardProps>> = ({ children, classNames, onClickHandler, ...rest }) => {
+export const CardUI: FC<PropsWithChildren<CardProps>> = ({ children, classNames, onClickHandler, ...rest }) => {
   const defaultClasses = `bg-slate-100 rounded-3xl py-2 px-3 ${classNames || ''}`;
   const classesByAttributes: string = buildClassesByAttributes<CardClassesType>(rest, CardClassesMapper);
   const classes = twMerge(`${defaultClasses} ${classesByAttributes}`.trim());

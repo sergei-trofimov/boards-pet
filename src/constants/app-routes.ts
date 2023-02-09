@@ -6,4 +6,6 @@ export const AppRoutes: AppRoutesInterface = {
   logout: 'logout',
   boards: 'boards',
   editBoard: 'boards/:boardId/edit',
+  cards: 'boards/:boardId/cards',
+  editCard: ':cardId/edit',
 };

@@ -1,6 +1,6 @@
 import { AppRoutes } from '@Constants/app-routes';
 import { Button } from '@Common/Button/Button';
-import { Card } from '@Common/Card/Card';
+import { CardUI } from '@Common/CardUI/CardUI';
 import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -9,7 +9,7 @@ export const Auth: FC = () => {
 
   return (
     <div className="h-full flex items-center">
-      <Card horizontalCentered classNames="w-135 h-80 -mt-46">
+      <CardUI horizontalCentered classNames="w-135 h-80 -mt-46">
         <div className="flex flex-col justify-center items-center gap-y-5 h-full">
           <Button primary onClickHandler={() => navigate(AppRoutes.login)}>
             Log In
@@ -18,7 +18,7 @@ export const Auth: FC = () => {
             Sign Up
           </Button>
         </div>
-      </Card>
+      </CardUI>
     </div>
   );
 };

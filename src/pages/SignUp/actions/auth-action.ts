@@ -4,7 +4,7 @@ import { AuthErrorKeys } from '@Constants/auth-error-mapper.constant';
 import { AuthResponse } from '@Types/api/auth-reponses.model';
 import { AxiosError } from 'axios';
 import { LocalStorageKeys } from '@Constants/local-storage-keys.constant';
-import { User } from '@Types/entities/user';
+import { User } from '@Types/entities/user.model';
 import { UsersApi } from '@Helpers/api/users-api';
 import { json } from 'react-router-dom';
 
