@@ -3,8 +3,8 @@ import { TextInput } from '@Common/Form/TextInput/TextInput';
 import { validationMessages } from '@Constants/validation-messages-map.constant';
 import { InputFormDefaultValue } from '@Helpers/forms/forms-api';
 import { FieldArray, FieldArrayRenderProps, Form, Formik } from 'formik';
-import { FC } from 'react';
-import { array, object, string } from 'yup';
+import { FC, useMemo } from 'react';
+import { array, object, SchemaFieldDescription, string } from 'yup';
 import { InputBuilderProps, InputFormType } from './types';
 
 const initilalInputFormValue: InputFormType = {
@@ -20,6 +20,11 @@ const validationSchema = object().shape({
 });
 
 export const InputBuilder: FC<InputBuilderProps> = ({ onSubmit }) => {
+  const validationObject: Record<string, SchemaFieldDescription> = useMemo(
+    () => validationSchema.describe().fields,
+    []
+  );
+
   return (
     <Formik
       initialValues={initilalInputFormValue}
@@ -32,9 +37,17 @@ export const InputBuilder: FC<InputBuilderProps> = ({ onSubmit }) => {
             render={(helpers: FieldArrayRenderProps) => (
               <>
                 <fieldset className="flex flex-col gap-y-3">
-                  {values.fields.map((field: InputFormDefaultValue, i: number) => (
-                    <TextInput key={field.id} name={`fields.${i}.field`} type="text" label="Name of field" />
-                  ))}
+                  {values.fields.map((field: InputFormDefaultValue, i: number) => {
+                    return (
+                      <TextInput
+                        key={field.id}
+                        name={`fields.${i}.field`}
+                        type="text"
+                        label="Name of field"
+                        validationObject={validationObject}
+                      />
+                    );
+                  })}
                 </fieldset>
                 <div className="flex flex-col gap-y-2">
                   <Button type="submit" horizontalCentered primary>

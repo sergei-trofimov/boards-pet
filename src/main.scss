@@ -31,6 +31,14 @@ body,
 
   &__title {
     @apply text-slate-700 font-bold text-xl;
+
+    &--required {
+      @apply relative self-start;
+
+      &:after {
+        @apply absolute -right-2 -top-0.5 text-red-600;
+      }
+    }
   }
 
   &__input {
