@@ -7,10 +7,6 @@ import { FC, useMemo } from 'react';
 import { array, object, SchemaFieldDescription, string } from 'yup';
 import { InputBuilderProps, InputFormType } from './types';
 
-const initilalInputFormValue: InputFormType = {
-  fields: [new InputFormDefaultValue()],
-};
-
 const validationSchema = object().shape({
   fields: array().of(
     object().shape({
@@ -20,6 +16,8 @@ const validationSchema = object().shape({
 });
 
 export const InputBuilder: FC<InputBuilderProps> = ({ onSubmit }) => {
+  const initilalInputFormValue: InputFormType = { fields: [new InputFormDefaultValue()] };
+
   const validationObject: Record<string, SchemaFieldDescription> = useMemo(
     () => validationSchema.describe().fields,
     []

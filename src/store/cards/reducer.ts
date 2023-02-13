@@ -3,8 +3,9 @@ import { CardActionTypes } from './actions';
 import CardsState from '@Types/store/cards-state.interface';
 import { CustomAction } from '@Types/store/custom-action.model';
 import { Reducer } from '@reduxjs/toolkit';
+import { FieldsActionTypes } from '@App-store/fields/actions';
 
-const initialState: CardsState = {
+export const initialState: CardsState = {
   cards: [],
   isLoading: false,
   error: null,
@@ -24,6 +25,8 @@ const {
   DELETE_CARD_SUCCESS,
   DELETE_CARD_FAILURE,
 } = CardActionTypes;
+
+const { ADD_FIELD, ADD_FIELD_SUCCESS, ADD_FIELD_FAILURE } = FieldsActionTypes;
 
 export const cardsReducer: Reducer<CardsState, CustomAction> = function reducer(
   state = initialState,
@@ -78,6 +81,16 @@ export const cardsReducer: Reducer<CardsState, CustomAction> = function reducer(
     }
 
     case DELETE_CARD_FAILURE:
+      return { ...state, isLoading: false, error: payload as string };
+
+    case ADD_FIELD:
+      return { ...state, isLoading: true, error: null };
+
+    case ADD_FIELD_SUCCESS: {
+      return { ...state, isLoading: false, cards: payload as Card[] };
+    }
+
+    case ADD_FIELD_FAILURE:
       return { ...state, isLoading: false, error: payload as string };
 
     default:

@@ -20,7 +20,10 @@ export const CardEdit: FC = () => {
     const formData = new FormData(form);
     const { title } = Object.fromEntries(formData) as { [key: string]: string };
 
-    dispatch(isEditMode ? cardThunks.editCard({ ...card, title }) : cardThunks.createCard({ title, boardId }));
+    if (card?.title !== title) {
+      dispatch(isEditMode ? cardThunks.editCard({ ...card, title }) : cardThunks.createCard({ title, boardId }));
+    }
+
     navigate(`/${AppRoutes.cards.replace(':boardId', boardId)}`);
   };
 

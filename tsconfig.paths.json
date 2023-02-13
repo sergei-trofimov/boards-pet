@@ -7,6 +7,7 @@
       "@Types/routes/*": ["src/types/routes/*"],
       "@Types/api/*": ["src/types/api/*"],
       "@Types/entities/*": ["src/types/entities/*"],
+      "@Types/form/*": ["src/types/form/*"],
       "@Constants/*": ["src/constants/*"],
       "@Animations": ["src/assets/animations"],
       "@Icons": ["src/assets/icons"],

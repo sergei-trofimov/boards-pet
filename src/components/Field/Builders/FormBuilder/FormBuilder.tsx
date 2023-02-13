@@ -11,14 +11,13 @@ import { FormBuilderProps } from './types';
 
 export const FormBuilder: FC<FormBuilderProps> = ({ type, onSubmit, handleBackBtnClick }) => {
   const handleSelectData = (data: SelectFormType) => {
-    const result: BaseFormFieldDisplayModel<null>[] = data.fields.map(({ id, field, options }) => {
-      const handleOptions: SelectOptionDisplayModel[] = options.map(({ id, option }, i) => ({
+    const result: BaseFormFieldDisplayModel<string>[] = data.fields.map(({ id, field, options }) => {
+      const handleOptions: SelectOptionDisplayModel[] = options.map(({ id, option }) => ({
         id,
         value: option,
-        selected: !i,
       }));
 
-      return { id, type, name: field, label: field, options: handleOptions, value: null };
+      return { id, type, name: field, label: field, options: handleOptions, value: options[0].option as string };
     });
 
     onSubmit(result);

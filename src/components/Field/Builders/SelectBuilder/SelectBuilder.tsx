@@ -8,10 +8,6 @@ import { FC, useMemo } from 'react';
 import { array, object, SchemaFieldDescription, string } from 'yup';
 import { SelectBuilderProps, SelectFormType } from './types';
 
-const initialSelectFormValues: SelectFormType = {
-  fields: [new SelectFormDefaultValue()],
-};
-
 const validationSchema = object().shape({
   fields: array().of(
     object().shape({
@@ -30,6 +26,10 @@ export const SelectBuilder: FC<SelectBuilderProps> = ({ onSubmit }) => {
     () => validationSchema.describe().fields,
     []
   );
+
+  const initialSelectFormValues: SelectFormType = {
+    fields: [new SelectFormDefaultValue()],
+  };
 
   return (
     <Formik

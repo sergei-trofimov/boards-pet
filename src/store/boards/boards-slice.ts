@@ -4,6 +4,8 @@ import { Board } from '@Types/entities/board.model';
 import BoardsState from '@Types/store/boards-state.interface';
 import { CardActionTypes } from '@App-store/cards/actions';
 import { Card } from '@Types/entities/card.model';
+import { BoardsActions, BoardsActionTypes } from './actions';
+import { BaseFormFieldDisplayModel } from '@Types/form/form-data-to-display.models';
 
 const initialState: BoardsState = {
   boards: [],
@@ -90,6 +92,20 @@ export const boardsSlice = createSlice({
 
       state.boards = state.boards.updateItem(board);
     });
+
+    builder.addCase(
+      createAction<{ fields: BaseFormFieldDisplayModel[]; boardId: string }>(BoardsActionTypes.UPDATE_FIELDS),
+      (state, action) => {
+        const fields = action.payload.fields;
+        const board: Board = state.boards.find(({ id }) => id === action.payload.boardId);
+
+        if (board.relatedFields) {
+          state.boards.find(({ id }) => id === action.payload.boardId).relatedFields.push(...fields);
+        } else {
+          board.relatedFields = fields;
+        }
+      }
+    );
   },
 });
 

@@ -4,6 +4,7 @@ import { BaseApi } from './base-api';
 import { CreateEntityResponse } from '@Types/api/create-entity-response.model';
 import { ENVIRONMENT_CONFIG } from '@Constants/env-config.constant';
 import { Endpoints } from '@Types/api/endpoints.model';
+import { BaseFormFieldDisplayModel } from '@Types/form/form-data-to-display.models';
 
 export class BoardsApi extends BaseApi {
   private static _instance: BoardsApi;
@@ -57,5 +58,17 @@ export class BoardsApi extends BaseApi {
     ]);
 
     return await this.axiosInstance.patch<null>(url, JSON.stringify({ relatedCardsId: payload.relatedCardsId }));
+  }
+
+  async editRelatedFieldsAsync(payload: {
+    relatedFields: BaseFormFieldDisplayModel[];
+    id: string;
+  }): Promise<AxiosResponse<null>> {
+    const url = this.buildUrl(ENVIRONMENT_CONFIG.BASE_DB_URL, true, null, (e: Endpoints) => e.db.boards, [
+      this.localId,
+      payload.id,
+    ]);
+
+    return await this.axiosInstance.patch<null>(url, JSON.stringify({ relatedFields: payload.relatedFields }));
   }
 }
