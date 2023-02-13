@@ -7,12 +7,18 @@ import { Action, ThunkAction } from '@reduxjs/toolkit';
 import { Card } from '@Types/entities/card.model';
 import { BaseFormFieldDisplayModel } from '@Types/form/form-data-to-display.models';
 import { AxiosError } from 'axios';
+import { removeEntitiesByIds } from '@Utils/remove-entities-by-ids.function';
 
 export enum FieldsActionTypes {
   // CREATE FIELD
   ADD_FIELD = '[Fields] Add field',
   ADD_FIELD_SUCCESS = '[Fields] Add field success',
   ADD_FIELD_FAILURE = '[Fields] Add field failure',
+
+  // REMOVE FIELDS
+  REMOVE_FIELDS = '[Fields] Remove fields',
+  REMOVE_FIELDS_SUCCESS = '[Fields] Remove fields success',
+  REMOVE_FIELDS_FAILURE = '[Fields] Remove fields failure',
 }
 
 export const FieldsActions = {
@@ -20,6 +26,11 @@ export const FieldsActions = {
   createField: () => ({ type: FieldsActionTypes.ADD_FIELD }),
   createFieldSuccess: (cards: Card[]) => ({ type: FieldsActionTypes.ADD_FIELD_SUCCESS, payload: cards }),
   createFieldFailure: (error: string) => ({ type: FieldsActionTypes.ADD_FIELD_FAILURE, payload: error }),
+
+  // REMOVE FIELDS
+  removeFields: () => ({ type: FieldsActionTypes.REMOVE_FIELDS }),
+  removeFieldsSuccess: (cards: Card[]) => ({ type: FieldsActionTypes.REMOVE_FIELDS_SUCCESS, payload: cards }),
+  removeFieldsFailure: (error: string) => ({ type: FieldsActionTypes.REMOVE_FIELDS_FAILURE, payload: error }),
 };
 
 const fieldsApi = FieldsApi.Instance;
@@ -44,17 +55,51 @@ const addFieldAsync = (payload: {
         ...(getState().boards.boards.find(({ id }) => boardId === id)?.relatedFields || []),
       ];
 
-      await fieldsApi.addFieldsAsync(boardId, updatedCards);
+      await fieldsApi.editFieldsAsync(boardId, updatedCards);
       await boardsApi.editRelatedFieldsAsync({ relatedFields, id: boardId });
 
       dispatch(FieldsActions.createFieldSuccess(updatedCards));
-      dispatch(BoardsActions.updateFields({ fields: relatedFields, boardId }));
+      dispatch(BoardsActions.addFields({ fields: relatedFields, boardId }));
     } catch (error) {
       dispatch(FieldsActions.createFieldFailure((error as AxiosError).message));
     }
   };
 };
 
+const removeFieldsAsync = (payload: {
+  boardId: string;
+  removeFieldsId: string[];
+  updatedCard: Card;
+}): ThunkAction<void, RootState, void, Action<FieldsActionTypes | BoardsActionTypes>> => {
+  return async (dispatch, getState): Promise<void> => {
+    dispatch(FieldsActions.removeFields());
+    const { boardId, removeFieldsId, updatedCard } = payload;
+
+    try {
+      const updatedCards: Card[] = getState().cards.cards.map((card: Card) => {
+        return card.id === updatedCard.id
+          ? updatedCard
+          : {
+              ...card,
+              fields: removeEntitiesByIds(card.fields, removeFieldsId),
+            };
+      });
+
+      const updatedBoardRelatedFields: BaseFormFieldDisplayModel[] = removeEntitiesByIds(
+        getState().boards.boards.find(({ id }) => boardId === id).relatedFields,
+        removeFieldsId
+      );
+
+      await fieldsApi.editFieldsAsync(boardId, updatedCards);
+      await boardsApi.editRelatedFieldsAsync({ relatedFields: updatedBoardRelatedFields, id: boardId });
+      dispatch(FieldsActions.removeFieldsSuccess(updatedCards));
+    } catch (error) {
+      dispatch(FieldsActions.removeFieldsFailure((error as AxiosError).message));
+    }
+  };
+};
+
 export const feidlsThunks = {
   addField: addFieldAsync,
+  removeField: removeFieldsAsync,
 };

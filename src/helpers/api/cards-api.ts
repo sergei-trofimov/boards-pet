@@ -43,7 +43,8 @@ export class CardsApi extends BaseApi {
       payload.boardId,
       payload.id,
     ]);
-    const { data } = await this.axiosInstance.patch<Card>(url, JSON.stringify({ title: payload.title }));
+
+    const { data } = await this.axiosInstance.patch<Card>(url, JSON.stringify(payload));
 
     return { ...payload, ...data };
   }

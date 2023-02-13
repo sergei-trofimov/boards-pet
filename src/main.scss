@@ -49,3 +49,16 @@ body,
 .validation-error {
   @apply max-w-89 text-lg text-center text-red-500;
 }
+
+.field-container {
+  @apply flex flex-col gap-y-1;
+
+  label {
+    @apply text-slate-700 font-bold text-xl;
+  }
+
+  input,
+  select {
+    @apply w-full py-1 px-3 outline-none rounded-md border border-solid border-slate-300;
+  }
+}

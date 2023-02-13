@@ -26,7 +26,8 @@ const {
   DELETE_CARD_FAILURE,
 } = CardActionTypes;
 
-const { ADD_FIELD, ADD_FIELD_SUCCESS, ADD_FIELD_FAILURE } = FieldsActionTypes;
+const { ADD_FIELD, ADD_FIELD_SUCCESS, ADD_FIELD_FAILURE, REMOVE_FIELDS, REMOVE_FIELDS_FAILURE, REMOVE_FIELDS_SUCCESS } =
+  FieldsActionTypes;
 
 export const cardsReducer: Reducer<CardsState, CustomAction> = function reducer(
   state = initialState,
@@ -83,6 +84,7 @@ export const cardsReducer: Reducer<CardsState, CustomAction> = function reducer(
     case DELETE_CARD_FAILURE:
       return { ...state, isLoading: false, error: payload as string };
 
+    // ADD FIELD
     case ADD_FIELD:
       return { ...state, isLoading: true, error: null };
 
@@ -91,6 +93,16 @@ export const cardsReducer: Reducer<CardsState, CustomAction> = function reducer(
     }
 
     case ADD_FIELD_FAILURE:
+      return { ...state, isLoading: false, error: payload as string };
+
+    // REMOVE FIELD
+    case REMOVE_FIELDS:
+      return { ...state, isLoading: true, error: null };
+
+    case REMOVE_FIELDS_SUCCESS:
+      return { ...state, isLoading: false, cards: payload as Card[] };
+
+    case REMOVE_FIELDS_FAILURE:
       return { ...state, isLoading: false, error: payload as string };
 
     default:

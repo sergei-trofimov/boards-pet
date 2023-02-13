@@ -23,7 +23,7 @@ export const CardsItem: FC<CardsItemProps> = ({ card }) => {
           {title}
         </h3>
         <div className="flex gap-x-2 pr-1">
-          <Button onClickHandler={() => navigate(`${card.id}/edit`)}>
+          <Button onClickHandler={() => navigate(`${card.id}/edit`, { state: card })}>
             <img src={pencil} alt="edit board" className="w-4" />
           </Button>
           <Button onClickHandler={removeBoardHandler}>

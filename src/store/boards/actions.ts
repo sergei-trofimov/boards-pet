@@ -1,13 +1,17 @@
-import { createAction } from '@reduxjs/toolkit';
 import { BaseFormFieldDisplayModel } from '@Types/form/form-data-to-display.models';
 
 export enum BoardsActionTypes {
-  UPDATE_FIELDS = '[Boards] Update fields',
+  ADD_FIELDS = '[Boards] Add fields',
+  REMOVE_FIELDS = '[Boards] Remove fields',
 }
 
 export const BoardsActions = {
-  updateFields: ({ fields, boardId }: { fields: BaseFormFieldDisplayModel[]; boardId: string }) => ({
-    type: BoardsActionTypes.UPDATE_FIELDS,
+  addFields: ({ fields, boardId }: { fields: BaseFormFieldDisplayModel[]; boardId: string }) => ({
+    type: BoardsActionTypes.ADD_FIELDS,
+    payload: { fields, boardId },
+  }),
+  removeFields: ({ fields, boardId }: { fields: BaseFormFieldDisplayModel[]; boardId: string }) => ({
+    type: BoardsActionTypes.ADD_FIELDS,
     payload: { fields, boardId },
   }),
 };

@@ -37,5 +37,6 @@ export function getValidationProps(
 }
 
 export function isFieldRequired(data: Record<string, SchemaFieldDescription>, props: string): boolean {
+  if (!data || !props) return false;
   return getValidationProps(data, props, 'required') >= 0;
 }
