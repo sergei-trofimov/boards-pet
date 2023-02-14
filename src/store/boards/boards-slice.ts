@@ -96,24 +96,18 @@ export const boardsSlice = createSlice({
     builder.addCase(
       createAction<{ fields: BaseFormFieldDisplayModel[]; boardId: string }>(BoardsActionTypes.ADD_FIELDS),
       (state, action) => {
-        const fields = action.payload.fields;
         const board: Board = state.boards.find(({ id }) => id === action.payload.boardId);
 
-        if (board.relatedFields) {
-          state.boards.find(({ id }) => id === action.payload.boardId).relatedFields.push(...fields);
-        } else {
-          board.relatedFields = fields;
-        }
+        board.relatedFields = action.payload.fields;
       }
     );
 
     builder.addCase(
       createAction<{ fields: BaseFormFieldDisplayModel[]; boardId: string }>(BoardsActionTypes.REMOVE_FIELDS),
       (state, action) => {
-        const fields = action.payload.fields;
         const board: Board = state.boards.find(({ id }) => id === action.payload.boardId);
 
-        board.relatedFields = fields;
+        board.relatedFields = action.payload.fields;
       }
     );
   },

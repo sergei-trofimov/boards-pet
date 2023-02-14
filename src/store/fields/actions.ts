@@ -93,6 +93,7 @@ const removeFieldsAsync = (payload: {
       await fieldsApi.editFieldsAsync(boardId, updatedCards);
       await boardsApi.editRelatedFieldsAsync({ relatedFields: updatedBoardRelatedFields, id: boardId });
       dispatch(FieldsActions.removeFieldsSuccess(updatedCards));
+      dispatch(BoardsActions.removeFields({ fields: updatedBoardRelatedFields, boardId }));
     } catch (error) {
       dispatch(FieldsActions.removeFieldsFailure((error as AxiosError).message));
     }

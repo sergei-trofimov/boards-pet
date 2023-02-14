@@ -127,7 +127,12 @@ export const CardEdit: FC = () => {
                                     );
                                   })}
                                 </Field>
-                                <Button onClickHandler={() => optionHelpers.remove(i)}>
+                                <Button
+                                  onClickHandler={() => {
+                                    removeField(field.id);
+                                    optionHelpers.remove(i);
+                                  }}
+                                >
                                   <img className="w-4" src={bin} alt="remove field" />
                                 </Button>
                               </div>
