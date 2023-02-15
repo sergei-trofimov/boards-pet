@@ -1,10 +1,10 @@
 import { FC, useEffect } from 'react';
 import { Outlet, useLoaderData, useLocation, useNavigate } from 'react-router-dom';
-import { RootState, useAppSelector } from 'src/store/store';
 import { AppRoutes } from '@Constants/app-routes';
 import { AuthResponse } from '@Types/api/auth-reponses.model';
 import { authActions } from '@Auth-state/auth-slice';
 import { useDispatch } from 'react-redux';
+import { RootState, useAppSelector } from '@App-store/store';
 
 export const RootLayout: FC = () => {
   const data = useLoaderData() as AuthResponse | null;
