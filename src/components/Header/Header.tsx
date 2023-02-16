@@ -5,15 +5,17 @@ import { Button } from '@Common/Button/Button';
 import { ENVIRONMENT_CONFIG } from '@Constants/env-config.constant';
 import { LocalStorageKeys } from '@Constants/local-storage-keys.constant';
 import { add } from '@Icons';
-import { authActions } from '@Auth-state/auth-slice';
 import { fetchBoardsThunk } from '@App-store/boards/thunks/boards';
 import { useAppDispatch } from '@App-store/store';
+import { useRootStoreContext } from '@App-store/mobx/store';
+import { observer } from 'mobx-react-lite';
 
-export const Header: FC = () => {
+const Header: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const pathMatch = useMatch(AppRoutes.cards);
   const location = useLocation();
+  const { logout } = useRootStoreContext().auth;
 
   useEffect(() => {
     dispatch(fetchBoardsThunk());
@@ -24,9 +26,9 @@ export const Header: FC = () => {
     localStorage.removeItem(LocalStorageKeys.LOCAL_ID);
     localStorage.removeItem(LocalStorageKeys.EXPIRATION_TIME);
 
-    dispatch(authActions.logout());
+    logout();
     navigate('/');
-  }, [dispatch, navigate]);
+  }, [navigate, logout]);
 
   return (
     <>
@@ -58,3 +60,5 @@ export const Header: FC = () => {
     </>
   );
 };
+
+export default observer(Header);
