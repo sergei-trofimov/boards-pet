@@ -1,8 +1,12 @@
 import { Context, createContext, FC, MutableRefObject, PropsWithChildren, useContext, useRef } from 'react';
 import { AuthStore } from './auth';
+import { BoardsStore } from './boards';
+import { CardsStore } from './cards';
 
 export class RootStore {
-  constructor(public auth = new AuthStore()) {}
+  public auth = new AuthStore();
+  public boards = new BoardsStore();
+  public cards = new CardsStore(this);
 }
 
 const RootStoreContext: Context<RootStore> = createContext<RootStore>(null);

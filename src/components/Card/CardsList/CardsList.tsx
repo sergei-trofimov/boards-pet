@@ -2,32 +2,30 @@ import { Animation } from '@Common/Animation/Animation';
 import { AnimationsName } from '@Constants/animations-name.constant';
 import { AppRoutes } from '@Constants/app-routes';
 import { Card } from '@Types/entities/card.model';
-import { CardsItem } from '../CardsItem/CardsItem';
+import CardsItem from '../CardsItem/CardsItem';
 import { CreateNewEntity } from '@Common/CreateNewEntity/CreateNewEntity';
 import { FC } from 'react';
-import { useAppSelector } from '@App-store/store';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { FieldTypeEnum } from '@Components/Field/NewField/types';
 import { Button } from '@Common/Button/Button';
 import { BaseFormFieldDisplayModel } from '@Types/form/form-data-to-display.models';
-import { DragAndDrop } from '@Common/DragAndDrop/DragAndDrop';
+import DragAndDrop from '@Common/DragAndDrop/DragAndDrop';
+import { useRootStoreContext } from '@App-store/mobx/store';
+import { observer } from 'mobx-react-lite';
 
 const groupBy = 'groupBy';
 
-export const CardsList: FC = () => {
+const CardsList: FC = () => {
   const navigate = useNavigate();
-  const params = useParams();
-  const { isLoading, cards, selectInputs, checkboxInputs, board } = useAppSelector((state) => {
-    const loading = state.cards.isLoading || state.boards.isLoading;
-    const cards = state.cards.cards;
-    const board = state.boards.boards.find(({ id }) => id === params.boardId);
-    const relatedFields = board?.relatedFields || [];
-    const selectInputs = relatedFields.filter(({ type }) => type === FieldTypeEnum.SELECT);
-    const checkboxInputs = relatedFields.filter(({ type }) => type === FieldTypeEnum.CHECKBOX);
-
-    return { isLoading: loading, cards, selectInputs, checkboxInputs, board };
-  });
   const [searchParams, setSearchParams] = useSearchParams();
+  const params = useParams();
+  const {
+    boards: { isLoading: boardsIsLoading, getBoardById, getRelatedFieldsByFieldType },
+    cards: { isLoading: cardsIsLoading, cards },
+  } = useRootStoreContext();
+  const board = getBoardById(params.boardId);
+  const selectInputs = getRelatedFieldsByFieldType(board, FieldTypeEnum.SELECT);
+  const checkboxInputs = getRelatedFieldsByFieldType(board, FieldTypeEnum.CHECKBOX);
 
   const groupByHandler = (name: string) => {
     if (!name) {
@@ -56,7 +54,7 @@ export const CardsList: FC = () => {
           </Button>
         ))}
       </div>
-      {isLoading ? (
+      {cardsIsLoading || boardsIsLoading ? (
         <Animation animationConfig={{ style: { height: '320px' } }} animationName={AnimationsName.CIRCLE_LOADER} />
       ) : cards?.length ? (
         searchParams.get(groupBy) ? (
@@ -84,3 +82,5 @@ export const CardsList: FC = () => {
     </div>
   );
 };
+
+export default observer(CardsList);

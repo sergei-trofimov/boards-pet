@@ -1,15 +1,17 @@
 import { FC, useEffect } from 'react';
 import { Outlet, useParams } from 'react-router-dom';
-import { cardThunks } from '@App-store/cards/actions';
-import { useAppDispatch } from '@App-store/store';
+import { useRootStoreContext } from '@App-store/mobx/store';
+import { observer } from 'mobx-react-lite';
 
-export const CardsPage: FC = () => {
-  const dispatch = useAppDispatch();
+const CardsPage: FC = () => {
   const { boardId } = useParams();
+  const { fetchCardsByBoardIdAsync } = useRootStoreContext().cards;
 
   useEffect(() => {
-    dispatch(cardThunks.fetchsCard(boardId));
-  }, [dispatch, boardId]);
+    fetchCardsByBoardIdAsync(boardId);
+  }, [fetchCardsByBoardIdAsync, boardId]);
 
   return <Outlet />;
 };
+
+export default observer(CardsPage);

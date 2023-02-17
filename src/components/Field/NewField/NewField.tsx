@@ -6,17 +6,20 @@ import { createFieldCTAs } from '@Constants/craete-field-cta.constant';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { FormBuilder } from '../Builders/FormBuilder/FormBuilder';
 import { BaseFormFieldDisplayModel } from 'src/types/form/form-data-to-display.models';
-import { useAppDispatch } from '@App-store/store';
-import { feidlsThunks } from '@App-store/fields/actions';
+import { observer } from 'mobx-react-lite';
+import { useRootStoreContext } from '@App-store/mobx/store';
 
 const Type = 'type';
 
-export const NewField: FC = () => {
+const NewField: FC = () => {
   const [search, setSearchParams] = useSearchParams();
   const [fieldType, setFieldType] = useState<FieldTypeEnum>(null);
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { boardId } = useParams();
+  const {
+    cards: { addFieldsToCardsAsync },
+    boards: { addNewFieldsAsync },
+  } = useRootStoreContext();
 
   useEffect(() => {
     const type = (search.get(Type) as FieldTypeEnum) ?? null;
@@ -35,7 +38,8 @@ export const NewField: FC = () => {
   };
 
   const handleFormSubmit = (data: BaseFormFieldDisplayModel[]) => {
-    dispatch(feidlsThunks.addField({ boardId, fields: data }));
+    addFieldsToCardsAsync({ boardId, fields: data });
+    addNewFieldsAsync({ boardId, fields: data });
     navigate('..');
   };
 
@@ -63,3 +67,5 @@ export const NewField: FC = () => {
     </div>
   );
 };
+
+export default observer(NewField);

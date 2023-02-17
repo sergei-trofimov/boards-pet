@@ -5,21 +5,21 @@ import { Button } from '@Common/Button/Button';
 import { ENVIRONMENT_CONFIG } from '@Constants/env-config.constant';
 import { LocalStorageKeys } from '@Constants/local-storage-keys.constant';
 import { add } from '@Icons';
-import { fetchBoardsThunk } from '@App-store/boards/thunks/boards';
-import { useAppDispatch } from '@App-store/store';
 import { useRootStoreContext } from '@App-store/mobx/store';
 import { observer } from 'mobx-react-lite';
 
 const Header: FC = () => {
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const pathMatch = useMatch(AppRoutes.cards);
   const location = useLocation();
-  const { logout } = useRootStoreContext().auth;
+  const {
+    auth: { logout },
+    boards: { getAllBoardsAsync },
+  } = useRootStoreContext();
 
   useEffect(() => {
-    dispatch(fetchBoardsThunk());
-  }, [dispatch]);
+    getAllBoardsAsync();
+  }, [getAllBoardsAsync]);
 
   const handleLogoutClick = useCallback(() => {
     localStorage.removeItem(LocalStorageKeys.ID_TOKEN);
