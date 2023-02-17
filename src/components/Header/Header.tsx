@@ -1,17 +1,19 @@
 import { FC, useCallback, useEffect } from 'react';
-import { add, cards } from '@Icons';
+import { useLocation, useMatch, useNavigate } from 'react-router-dom';
 import { AppRoutes } from '@Constants/app-routes';
 import { Button } from '@Common/Button/Button';
 import { ENVIRONMENT_CONFIG } from '@Constants/env-config.constant';
 import { LocalStorageKeys } from '@Constants/local-storage-keys.constant';
+import { add } from '@Icons';
 import { authActions } from '@Auth-state/auth-slice';
 import { fetchBoardsThunk } from '@App-store/boards/thunks/boards';
 import { useAppDispatch } from '@App-store/store';
-import { useNavigate } from 'react-router-dom';
 
 export const Header: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const pathMatch = useMatch(AppRoutes.cards);
+  const location = useLocation();
 
   useEffect(() => {
     dispatch(fetchBoardsThunk());
@@ -37,16 +39,18 @@ export const Header: FC = () => {
         </Button>
       </div>
       <div className="h-10 bg-slate-100 mb-6">
-        <div className="flex h-full container mx-auto px-10">
-          <div className="flex-grow flex justify-center items-center">
-            <Button classNames="px-1">
-              <img src={add} alt="add" />
+        <div className="flex justify-between h-full container mx-auto px-10">
+          {pathMatch && (
+            <Button
+              primary
+              classNames="px-1 flex items-center justify-center gap-x-2"
+              onClickHandler={() => navigate(`${location.pathname}/${AppRoutes.newField}`)}
+            >
+              <span>Add Field</span>
+              <img className="w-4" src={add} alt="add" />
             </Button>
-            <Button classNames="px-1">
-              <img src={cards} alt="add" />
-            </Button>
-          </div>
-          <Button primary classNames="max-w-24" onClickHandler={() => navigate(AppRoutes.boards)}>
+          )}
+          <Button primary classNames="max-w-24 ml-auto" onClickHandler={() => navigate(AppRoutes.boards)}>
             Boards
           </Button>
         </div>

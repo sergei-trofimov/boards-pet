@@ -2,7 +2,7 @@ import { Action } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 import { Board } from '@Types/entities/board.model';
 import { BoardsApi } from '@Helpers/api/boards-api';
-import { Card } from '@Types/entities/card.model';
+import { Card, CardRequestPayload } from '@Types/entities/card.model';
 import { CardsApi } from '@Helpers/api/cards-api';
 import { RootState } from '@App-store/store';
 import { ThunkAction } from 'redux-thunk';
@@ -63,8 +63,11 @@ const createCardAsync = (
     dispatch(CardsActions.createCard());
 
     try {
-      const data: Card = await cardsApi.createCardAsync(payload);
-      const { id, relatedCardsId }: Board = getState().boards.boards.find(({ id }) => id === payload.boardId);
+      const { id, relatedCardsId, relatedFields }: Board = getState().boards.boards.find(
+        ({ id }) => id === payload.boardId
+      );
+      const body: CardRequestPayload = new Card(payload.title, payload.boardId, relatedFields);
+      const data: Card = await cardsApi.createCardAsync(body, id);
       const relatedIds: string[] = (relatedCardsId ?? []).concat(data.id);
       await boardsApi.editRelatedCardsIdAsync({ id, relatedCardsId: relatedIds });
 

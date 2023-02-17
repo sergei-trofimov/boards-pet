@@ -17,8 +17,7 @@ export class CardsApi extends BaseApi {
     return this._instance || (this._instance = new this());
   }
 
-  async createCardAsync({ boardId, title }: Pick<Card, 'title' | 'boardId'>): Promise<Card> {
-    const body: CardRequestPayload = new Card(title, boardId);
+  async createCardAsync(body: CardRequestPayload, boardId: string): Promise<Card> {
     const url = this.buildUrl(ENVIRONMENT_CONFIG.BASE_DB_URL, true, null, (e: Endpoints) => e.db.cards, [
       this.localId,
       boardId,
@@ -38,13 +37,14 @@ export class CardsApi extends BaseApi {
     return data ? Object.keys(data).map((id) => ({ id, ...data[id] })) : [];
   }
 
-  async editCardAsync<T>(payload: Card): Promise<Card> {
+  async editCardAsync(payload: Card): Promise<Card> {
     const url = this.buildUrl(ENVIRONMENT_CONFIG.BASE_DB_URL, true, null, (e: Endpoints) => e.db.cards, [
       this.localId,
       payload.boardId,
       payload.id,
     ]);
-    const { data } = await this.axiosInstance.patch<T>(url, JSON.stringify({ title: payload.title } as T));
+
+    const { data } = await this.axiosInstance.patch<Card>(url, JSON.stringify(payload));
 
     return { ...payload, ...data };
   }
