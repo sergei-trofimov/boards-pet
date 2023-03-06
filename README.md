@@ -3,6 +3,17 @@
 You can visit the preview of the project
 ### [**Preview Link**](https://pointless-humor.surge.sh/)
 
+### **Use technologies**
+>1. React
+>2. React Router DOM v.^6.4
+>3. Redux/Toolkit/Thunk (also has a version with mobX as state manager)
+>4. Formik
+>5. Tailwind CSS
+>6. Lottie animations
+>7. Axios
+>8. Firebase
+>9. Surge (for the project deployment)
+
 ### **Scripts commands**
 >1. ***npm run start***: running the project in the development mode;
 >2. ***npm run build***: creating a production bundle;
