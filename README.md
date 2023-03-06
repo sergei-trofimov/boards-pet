@@ -1,5 +1,11 @@
 # React Education
 
+## About the project
+Pet project for improving skills about React/Ract-Router/Redux. Project created manually (without CRA), by using Webpack. 
+
+#### Description
+The project has a simple authorization by Firebase. You can create boards, and each board has its own cards. Each card has inputs (text, checkbox, select). Users can dynamically change (create/edit/remove) fields. Each operation affects all cards in the current board. The project also added Drag&Drop for cards, which also affects every card change.
+
 You can visit the preview of the project
 ### [**Preview Link**](https://pointless-humor.surge.sh/)
 
