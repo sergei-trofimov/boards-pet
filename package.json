@@ -9,7 +9,7 @@
     "lint": "eslint --ext ts,tsx src",
     "test": "npx jest --watch",
     "test-single-run": "npx jest",
-    "deploy": "webpack --mode production && surge --project ./public --domain pointless-humor.surge.sh",
+    "deploy": "webpack --mode production && cp public/index.html public/200.html && surge --project ./public --domain pointless-humor.surge.sh",
     "format": "npx prettier --write ."
   },
   "keywords": [],

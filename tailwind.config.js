@@ -30,7 +30,7 @@ module.exports = {
         'min-h': 'repeat(auto-fill, minmax(124px, 1fr))'
       },
       gridAutoRows: {
-        'm': '124px'
+        'm': 'minmax(124px, 1fr)'
       },
       spacing: {
         'inherit': 'inherit',
