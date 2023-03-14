@@ -17,8 +17,8 @@ export class BoardsApi extends BaseApi {
     return this._instance || (this._instance = new this());
   }
 
-  async createBoardAsync(payload: Pick<Board, 'title'>): Promise<Board> {
-    const body: BoardRequestPayload = new Board(this.localId, payload.title);
+  async createBoardAsync(title: string): Promise<Board> {
+    const body: BoardRequestPayload = new Board(this.localId, title);
     const url = this.buildUrl(ENVIRONMENT_CONFIG.BASE_DB_URL, true, null, (e: Endpoints) => e.db.boards, this.localId);
     const { data } = await this.axiosInstance.post<CreateEntityResponse>(url, JSON.stringify(body));
 
