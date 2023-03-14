@@ -24,8 +24,12 @@ export class CardsStore {
     makeAutoObservable(this);
   }
 
+  set setLoading(loading: boolean) {
+    this.isLoading = loading;
+  }
+
   createCardAsync = async ({ title, boardId }: Pick<Card, 'title' | 'boardId'>): Promise<void> => {
-    this.isLoading = true;
+    this.setLoading = true;
     this.error = null;
 
     try {
@@ -37,59 +41,65 @@ export class CardsStore {
       await boardsApi.editRelatedCardsIdAsync({ id, relatedCardsId: relatedIds });
 
       runInAction(() => {
-        this.isLoading = false;
         this.cards.push(card);
 
         relatedCardsId ? relatedCardsId.push(card.id) : (relatedCardsId = [card.id]);
       });
     } catch (error) {
       runInAction(() => {
-        this.isLoading = false;
-        this.error = (error as AxiosError).message;
+        this.handleResponseError(<AxiosError>error);
+      });
+    } finally {
+      runInAction(() => {
+        this.setLoading = false;
       });
     }
   };
 
   fetchCardsByBoardIdAsync = async (boardId: string): Promise<void> => {
-    this.isLoading = true;
+    this.setLoading = true;
     this.error = null;
 
     try {
       const cards: Card[] = await cardsApi.getCardsByBoardIdAsync(boardId);
 
       runInAction(() => {
-        this.isLoading = false;
         this.cards = cards;
       });
     } catch (error) {
       runInAction(() => {
-        this.isLoading = false;
-        this.error = (error as AxiosError).message;
+        this.handleResponseError(<AxiosError>error);
+      });
+    } finally {
+      runInAction(() => {
+        this.setLoading = false;
       });
     }
   };
 
   editCardAsync = async (card: Card): Promise<void> => {
-    this.isLoading = true;
+    this.setLoading = true;
     this.error = null;
 
     try {
       const updatedCard: Card = await cardsApi.editCardAsync(card);
 
       runInAction(() => {
-        this.isLoading = false;
         this.cards = this.cards.updateItem(updatedCard);
       });
     } catch (error) {
       runInAction(() => {
-        this.isLoading = false;
-        this.error = (error as AxiosError).message;
+        this.handleResponseError(<AxiosError>error);
+      });
+    } finally {
+      runInAction(() => {
+        this.setLoading = false;
       });
     }
   };
 
   deleteCardAsync = async (card: Card): Promise<void> => {
-    this.isLoading = true;
+    this.setLoading = true;
     this.error = null;
 
     try {
@@ -99,24 +109,25 @@ export class CardsStore {
       await boardsApi.editRelatedCardsIdAsync({ id: board.id, relatedCardsId: relatedIds });
 
       runInAction(() => {
-        this.isLoading = false;
         this.cards = this.cards.filter(({ id }) => id !== card.id);
         board.relatedCardsId = board.relatedCardsId.filter((cardId) => cardId !== card.id);
       });
     } catch (error) {
       runInAction(() => {
-        this.isLoading = false;
-        this.error = (error as AxiosError).message;
+        this.handleResponseError(<AxiosError>error);
+      });
+    } finally {
+      runInAction(() => {
+        this.setLoading = false;
       });
     }
   };
 
-  addFieldsToCardsAsync = async (payload: AddFieldsPayload): Promise<void> => {
-    this.isLoading = true;
+  addFieldsToCardsAsync = async ({ boardId, fields }: AddFieldsPayload): Promise<void> => {
+    this.setLoading = true;
     this.error = null;
 
     try {
-      const { boardId, fields } = payload;
       const updatedCards: Card[] = this.cards.map((card: Card) => ({
         ...card,
         fields: [...(card?.fields || []), ...fields],
@@ -125,23 +136,24 @@ export class CardsStore {
       await fieldsApi.editFieldsAsync(boardId, updatedCards);
 
       runInAction(() => {
-        this.isLoading = false;
         this.cards = updatedCards;
       });
     } catch (error) {
       runInAction(() => {
-        this.isLoading = false;
-        this.error = (error as AxiosError).message;
+        this.handleResponseError(<AxiosError>error);
+      });
+    } finally {
+      runInAction(() => {
+        this.setLoading = false;
       });
     }
   };
 
-  removeFieldFromCardAsync = async (payload: RemoveFieldsPayload): Promise<void> => {
-    this.isLoading = true;
+  removeFieldFromCardAsync = async ({ boardId, removeFieldsId, updatedCard }: RemoveFieldsPayload): Promise<void> => {
+    this.setLoading = true;
     this.error = null;
 
     try {
-      const { boardId, removeFieldsId, updatedCard } = payload;
       const updatedCards: Card[] = this.cards.map((card: Card) => {
         return card.id === updatedCard.id
           ? updatedCard
@@ -154,13 +166,15 @@ export class CardsStore {
       await fieldsApi.editFieldsAsync(boardId, updatedCards);
 
       runInAction(() => {
-        this.isLoading = false;
         this.cards = updatedCards;
       });
     } catch (error) {
       runInAction(() => {
-        this.isLoading = false;
-        this.error = (error as AxiosError).message;
+        this.handleResponseError(<AxiosError>error);
+      });
+    } finally {
+      runInAction(() => {
+        this.setLoading = false;
       });
     }
   };
@@ -169,4 +183,8 @@ export class CardsStore {
     const card: Card = this.cards.find((card) => card.id === id);
     return card;
   };
+
+  private handleResponseError(error: AxiosError): void {
+    this.error = error.message;
+  }
 }

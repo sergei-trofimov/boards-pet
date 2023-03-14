@@ -11,9 +11,7 @@ export class AuthStore {
     makeAutoObservable(this);
   }
 
-  login = (response: AuthResponse) => {
-    const { user, ...rest } = response;
-
+  login = ({ user, ...rest }: AuthResponse) => {
     this.isAuth = true;
     this.authData = rest;
     this.user = user;

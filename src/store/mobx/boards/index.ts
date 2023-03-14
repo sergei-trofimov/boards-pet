@@ -19,86 +19,98 @@ export class BoardsStore {
     makeAutoObservable(this);
   }
 
+  set setLoading(loading: boolean) {
+    this.isLoading = loading;
+  }
+
   getAllBoardsAsync = async (): Promise<void> => {
-    this.isLoading = true;
+    this.setLoading = true;
     this.error = null;
 
     try {
       const boards: Board[] = await boardsApi.getAllBoardsAsync();
 
       runInAction(() => {
-        this.isLoading = false;
         this.boards = boards;
       });
     } catch (error) {
       runInAction(() => {
-        this.isLoading = false;
-        this.error = (error as AxiosError).message;
+        this.handleResponseError(<AxiosError>error);
+      });
+    } finally {
+      runInAction(() => {
+        this.setLoading = false;
       });
     }
   };
 
   createBoardAsync = async (title: string): Promise<void> => {
-    this.isLoading = true;
+    this.setLoading = true;
     this.error = null;
 
     try {
       const board: Board = await boardsApi.createBoardAsync(title);
 
       runInAction(() => {
-        this.isLoading = false;
         this.boards.push(board);
       });
     } catch (error) {
       runInAction(() => {
-        this.isLoading = false;
-        this.error = (error as AxiosError).message;
+        this.handleResponseError(<AxiosError>error);
+      });
+    } finally {
+      runInAction(() => {
+        this.setLoading = false;
       });
     }
   };
 
   removeBoardAsync = async (id: string): Promise<void> => {
-    this.isLoading = true;
+    this.setLoading = true;
     this.error = null;
 
     try {
       await boardsApi.removeBoardAsync(id);
 
       runInAction(() => {
-        this.isLoading = false;
         this.boards = this.boards.filter((board: Board) => board.id !== id);
       });
     } catch (error) {
       runInAction(() => {
-        this.isLoading = false;
-        this.error = (error as AxiosError).message;
+        this.handleResponseError(<AxiosError>error);
+      });
+    } finally {
+      runInAction(() => {
+        this.setLoading = false;
       });
     }
   };
 
   editBoardAsync = async (board: Board): Promise<void> => {
-    this.isLoading = true;
+    this.setLoading = true;
     this.error = null;
 
     try {
       const updatedBoard: Board = await boardsApi.editBoardAsync<Board>(board);
 
       runInAction(() => {
-        this.isLoading = false;
         const index = this.boards.findIndex(({ id }) => id === updatedBoard.id);
 
         this.boards.splice(index, 1, updatedBoard);
       });
     } catch (error) {
       runInAction(() => {
-        this.isLoading = false;
-        this.error = (error as AxiosError).message;
+        this.handleResponseError(<AxiosError>error);
+      });
+    } finally {
+      runInAction(() => {
+        this.setLoading = false;
       });
     }
   };
 
   addNewFieldsAsync = async (payload: AddFieldsPayload): Promise<void> => {
-    this.isLoading = true;
+    this.setLoading = true;
     this.error = null;
 
     try {
@@ -109,24 +121,24 @@ export class BoardsStore {
       await boardsApi.editRelatedFieldsAsync({ relatedFields, id: boardId });
 
       runInAction(() => {
-        this.isLoading = false;
         board.relatedFields = relatedFields;
       });
     } catch (error) {
       runInAction(() => {
-        this.isLoading = false;
-        this.error = (error as AxiosError).message;
+        this.handleResponseError(<AxiosError>error);
+      });
+    } finally {
+      runInAction(() => {
+        this.setLoading = false;
       });
     }
   };
 
-  removeFieldsFromBoardAsync = async (payload: Omit<RemoveFieldsPayload, 'updatedCard'>): Promise<void> => {
-    this.isLoading = true;
+  removeFieldsFromBoardAsync = async ({ boardId, removeFieldsId }: Omit<RemoveFieldsPayload, 'updatedCard'>): Promise<void> => {
+    this.setLoading = true;
     this.error = null;
 
     try {
-      const { boardId, removeFieldsId } = payload;
-
       const board: Board = this.getBoardById(boardId);
       const updatedBoardRelatedFields: BaseFormFieldDisplayModel[] = removeEntitiesByIds(
         board.relatedFields,
@@ -136,13 +148,15 @@ export class BoardsStore {
       await boardsApi.editRelatedFieldsAsync({ relatedFields: updatedBoardRelatedFields, id: boardId });
 
       runInAction(() => {
-        this.isLoading = false;
         board.relatedFields = updatedBoardRelatedFields;
       });
     } catch (error) {
       runInAction(() => {
-        this.isLoading = false;
-        this.error = (error as AxiosError).message;
+        this.handleResponseError(<AxiosError>error);
+      });
+    } finally {
+      runInAction(() => {
+        this.setLoading = false;
       });
     }
   };
@@ -154,4 +168,8 @@ export class BoardsStore {
   getRelatedFieldsByFieldType = (board: Board, type: FieldTypeEnum): BaseFormFieldDisplayModel[] => {
     return (board?.relatedFields || []).filter((field: BaseFormFieldDisplayModel) => type === field.type);
   };
+
+  private handleResponseError(error: AxiosError): void {
+    this.error = error.message;
+  }
 }
