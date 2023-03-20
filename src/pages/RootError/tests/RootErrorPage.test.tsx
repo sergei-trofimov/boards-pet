@@ -15,8 +15,7 @@ jest.mock('react-router', () => ({
 
 describe('RootErrorPage component', () => {
   const renderComponent = () => render(<RootErrorPage />);
-
-  it('should display correct content', () => {
+  it('should display coorect content', () => {
     // Arrange
     // Act
     renderComponent();

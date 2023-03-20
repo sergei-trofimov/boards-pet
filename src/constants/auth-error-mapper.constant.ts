@@ -1,4 +1,4 @@
-export enum AuthErrorKeys {
+export const enum AuthErrorKeys {
   INVALID_PASSWORD = 'INVALID_PASSWORD',
   EMAIL_NOT_FOUND = 'EMAIL_NOT_FOUND',
   EMAIL_EXISTS = 'EMAIL_EXISTS',
