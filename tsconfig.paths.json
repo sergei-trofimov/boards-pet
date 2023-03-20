@@ -22,7 +22,8 @@
       "@Utils/*": ["src/utils/*"],
       "@Thunks/*": ["src/constants/thunks/*"],
       "@Helpers/api/*": ["src/helpers/api/*"],
-      "@Helpers/forms/*": ["src/helpers/forms/*"]
+      "@Helpers/forms/*": ["src/helpers/forms/*"],
+      "@Mobx-store/*": ["src/store/mobx/*"]
     }
   }
 }

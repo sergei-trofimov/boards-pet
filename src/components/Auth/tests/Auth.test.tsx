@@ -11,7 +11,7 @@ jest.mock('@Common/Button/Button', () => ({
   },
 }));
 jest.mock('react-router-dom', () => ({
-  ...(jest.requireActual('react-router-dom')),
+  ...jest.requireActual('react-router-dom'),
   useNavigate: () => navigate,
 }));
 

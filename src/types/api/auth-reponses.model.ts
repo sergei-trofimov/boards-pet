@@ -1,4 +1,4 @@
-import { User } from '@Types/entities/user';
+import { User } from '@Types/entities/user.model';
 
 export interface AuthResponse {
   email: string;

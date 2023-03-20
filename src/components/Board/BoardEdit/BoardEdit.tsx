@@ -1,26 +1,24 @@
 import { FC, FormEvent, useState } from 'react';
-import { addBoardsThunk, editBoardThunk } from '@App-store/boards/thunks/boards';
-import { useAppDispatch, useAppSelector } from '@App-store/store';
 import { useNavigate, useParams } from 'react-router-dom';
 import { AppRoutes } from '@Constants/app-routes';
 import { Board } from '@Types/entities/board.model';
 import { Button } from '@Common/Button/Button';
 import { CardUI } from '@Common/CardUI/CardUI';
+import { useRootStoreContext } from '@App-store/mobx/store';
+import { observer } from 'mobx-react-lite';
 
-export const BoardEdit: FC = () => {
-  const dispatch = useAppDispatch();
+const BoardEdit: FC = () => {
   const navigate = useNavigate();
   const { boardId } = useParams();
   const [isEditMode] = useState(boardId !== 'new');
-  const board: Board = useAppSelector((state) => state.boards.boards.find(({ id }) => id === boardId));
+  const { createBoardAsync, editBoardAsync, getBoardById } = useRootStoreContext().boards;
+  const board: Board = getBoardById(boardId);
 
   const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const form = e.target as HTMLFormElement;
-    const formData = new FormData(form);
-    const { title } = Object.fromEntries(formData) as { [key: string]: string };
+    const { title } = Object.fromEntries(new FormData(e.target as HTMLFormElement)) as { [key: string]: string };
 
-    dispatch(isEditMode ? editBoardThunk({ ...board, title }) : addBoardsThunk({ title }));
+    isEditMode ? editBoardAsync({ ...board, title }) : createBoardAsync(title);
     navigate(`/${AppRoutes.boards}`);
   };
 
@@ -44,3 +42,5 @@ export const BoardEdit: FC = () => {
     </CardUI>
   );
 };
+
+export default observer(BoardEdit);

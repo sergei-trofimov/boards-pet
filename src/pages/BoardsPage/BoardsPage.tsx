@@ -4,12 +4,13 @@ import { AppRoutes } from '@Constants/app-routes';
 import { BoardsList } from '@Components/Board/BoadrsList/BoardsList';
 import { CreateNewEntity } from '@Common/CreateNewEntity/CreateNewEntity';
 import { FC } from 'react';
-import { useAppSelector } from '@App-store/store';
 import { useNavigate } from 'react-router-dom';
+import { observer } from 'mobx-react-lite';
+import { useRootStoreContext } from '@App-store/mobx/store';
 
-export const BoardsPage: FC = () => {
+const BoardsPage: FC = () => {
   const navigate = useNavigate();
-  const { isLoading, boards } = useAppSelector((state) => ({ ...state.boards }));
+  const { isLoading, boards } = useRootStoreContext().boards;
 
   return (
     <div className="container px-10 mx-auto overflow-auto flex-grow">
@@ -29,3 +30,5 @@ export const BoardsPage: FC = () => {
     </div>
   );
 };
+
+export default observer(BoardsPage);

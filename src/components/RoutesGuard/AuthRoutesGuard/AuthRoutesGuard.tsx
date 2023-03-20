@@ -1,9 +1,12 @@
+import { useRootStoreContext } from '@App-store/mobx/store';
 import { Auth } from '@Components/Auth/Auth';
+import { observer } from 'mobx-react';
 import { Outlet } from 'react-router-dom';
-import { useAppSelector } from 'src/store/store';
 
-export const AuthRoutesGuard = () => {
-  const isAuth: boolean = useAppSelector((state) => state.auth.isAuth);
+const AuthRoutesGuard = () => {
+  const { isAuth } = useRootStoreContext().auth;
 
   return isAuth ? <Outlet /> : <Auth />;
 };
+
+export default observer(AuthRoutesGuard);

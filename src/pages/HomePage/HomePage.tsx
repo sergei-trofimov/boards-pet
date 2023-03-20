@@ -1,7 +1,7 @@
 import { FC, useEffect } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { AppRoutes } from '@Constants/app-routes';
-import { Header } from '@Components/Header/Header';
+import Header from '@Components/Header/Header';
 
 export const HomePage: FC = () => {
   const navigate = useNavigate();
