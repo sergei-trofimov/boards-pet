@@ -10,5 +10,6 @@ export const ENDPOINTS: Endpoints = {
     users: 'users',
     boards: 'boards',
     cards: 'cards',
+    accounts: 'accounts'
   },
 };

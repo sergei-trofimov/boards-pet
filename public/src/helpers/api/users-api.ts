@@ -1,7 +1,7 @@
 import { BaseApi } from './base-api';
 import { ENVIRONMENT_CONFIG } from '@Constants/env-config.constant';
 import { Endpoints } from '@Types/api/endpoints.model';
-import { User } from '@Types/entities/user';
+import { User } from '@Types/entities/user.model';
 
 export class UsersApi extends BaseApi {
   private static _instance: UsersApi;

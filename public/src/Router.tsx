@@ -14,6 +14,7 @@ import NewField from '@Components/Field/NewField/NewField';
 import { RootErrorPage } from '@Pages/RootError/RootErrorPage';
 import RootLayout from '@Pages/Root/RootLayout';
 import SignUpPage from '@Pages/SignUp/SignUpPage';
+import AccountsPage from '@Pages/AccountsPAge/AccountsPage';
 
 export const routerConfig: RouteObject[] = [
   {
@@ -58,6 +59,10 @@ export const routerConfig: RouteObject[] = [
                   },
                 ],
               },
+              {
+                path: AppRoutes.accounts,
+                element: <AccountsPage />
+              }
             ],
           },
         ],

@@ -10,7 +10,8 @@ import { observer } from 'mobx-react-lite';
 
 const Header: FC = () => {
   const navigate = useNavigate();
-  const pathMatch = useMatch(AppRoutes.cards);
+  const cardsPathMatch = useMatch(AppRoutes.cards);
+  const accountPathMatch = useMatch(AppRoutes.accounts);
   const location = useLocation();
   const {
     auth: { logout },
@@ -42,19 +43,23 @@ const Header: FC = () => {
       </div>
       <div className="h-10 bg-slate-100 mb-6">
         <div className="flex justify-between h-full container mx-auto px-10">
-          {pathMatch && (
-            <Button
-              primary
-              classNames="px-1 flex items-center justify-center gap-x-2"
-              onClickHandler={() => navigate(`${location.pathname}/${AppRoutes.newField}`)}
-            >
-              <span>Add Field</span>
-              <img className="w-4" src={add} alt="add" />
-            </Button>
+          {!accountPathMatch && (
+            <>
+              {cardsPathMatch && (
+                <Button
+                  primary
+                  classNames="px-1 flex items-center justify-center gap-x-2"
+                  onClickHandler={() => navigate(`${location.pathname}/${AppRoutes.newField}`)}
+                >
+                  <span>Add Field</span>
+                  <img className="w-4" src={add} alt="add" />
+                </Button>
+              )}
+              <Button primary classNames="max-w-24 ml-auto" onClickHandler={() => navigate(AppRoutes.boards)}>
+                Boards
+              </Button>
+            </>
           )}
-          <Button primary classNames="max-w-24 ml-auto" onClickHandler={() => navigate(AppRoutes.boards)}>
-            Boards
-          </Button>
         </div>
       </div>
     </>

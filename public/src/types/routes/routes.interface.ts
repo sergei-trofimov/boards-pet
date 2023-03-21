@@ -7,4 +7,5 @@ export interface AppRoutesInterface {
   cards: string;
   editCard: string;
   newField: string;
+  accounts: string;
 }
