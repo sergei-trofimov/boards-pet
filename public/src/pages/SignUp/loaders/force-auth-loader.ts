@@ -19,6 +19,10 @@ export async function loader(): Promise<AuthResponse | Response | null> {
 
       return { email: data.email, expiresIn: '3600', idToken, localId: data.localId, user };
     } catch (error) {
+      localStorage.removeItem(LocalStorageKeys.ID_TOKEN);
+      localStorage.removeItem(LocalStorageKeys.LOCAL_ID);
+      localStorage.removeItem(LocalStorageKeys.EXPIRATION_TIME);
+
       switch ((error as AxiosError<{ error: ErrorResponse<string> }>).response.data.error.message) {
         case 'USER_NOT_FOUND':
           return redirect(AppRoutes.signup);

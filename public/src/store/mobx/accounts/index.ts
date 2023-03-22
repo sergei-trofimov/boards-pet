@@ -3,7 +3,7 @@ import { UsersApi } from '@Helpers/api/users-api';
 import { Account } from '@Types/entities/account.model';
 import { User } from '@Types/entities/user.model';
 import { AxiosError } from 'axios';
-import { makeAutoObservable, runInAction, toJS } from 'mobx';
+import { makeAutoObservable, runInAction } from 'mobx';
 import { RootStore } from '../store';
 
 const accountApi = AccountApi.Instance;
@@ -58,6 +58,29 @@ export class AccountStore {
 
       runInAction(() => {
         this.accounts.push(...accounts);
+      });
+    } catch (error) {
+      runInAction(() => {
+        this.handleResponseError(<AxiosError>error);
+      });
+    } finally {
+      runInAction(() => {
+        this.setLoading = false;
+      });
+    }
+  };
+
+  editAccountAsync = async (payload: Account): Promise<void> => {
+    this.setLoading = true;
+    this.error = null;
+
+    try {
+      const updatedAccount: Account = await accountApi.editAccountAsync(payload);
+
+      runInAction(() => {
+        const index = this.accounts.findIndex(({ id }) => id === updatedAccount.id);
+
+        this.accounts.splice(index, 1, updatedAccount);
       });
     } catch (error) {
       runInAction(() => {

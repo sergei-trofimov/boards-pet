@@ -1,21 +1,25 @@
 import { FieldTypeEnum } from '@Components/Field/NewField/types';
+import { AccountApi } from '@Helpers/api/account-api';
 import { BoardsApi } from '@Helpers/api/boards-api';
+import { Account } from '@Types/entities/account.model';
 import { Board } from '@Types/entities/board.model';
 import { BaseFormFieldDisplayModel } from '@Types/form/form-data-to-display.models';
 import { removeEntitiesByIds } from '@Utils/remove-entities-by-ids.function';
 import { AxiosError } from 'axios';
 import { makeAutoObservable, runInAction } from 'mobx';
+import { RootStore } from '../store';
 import { AddFieldsPayload } from '../types/add-fields-payload.model';
 import { RemoveFieldsPayload } from '../types/remove-fields-payload.model';
 
 const boardsApi = BoardsApi.Instance;
+const accountApi = AccountApi.Instance;
 
 export class BoardsStore {
   boards: Board[] = [];
   isLoading = false;
   error: string = null;
 
-  constructor() {
+  constructor(private root: RootStore) {
     makeAutoObservable(this);
   }
 
@@ -50,6 +54,7 @@ export class BoardsStore {
 
     try {
       const board: Board = await boardsApi.createBoardAsync(title);
+      await this.updateAccount(board.id, 'add');
 
       runInAction(() => {
         this.boards.push(board);
@@ -71,6 +76,7 @@ export class BoardsStore {
 
     try {
       await boardsApi.removeBoardAsync(id);
+      await this.updateAccount(id, 'remove');
 
       runInAction(() => {
         this.boards = this.boards.filter((board: Board) => board.id !== id);
@@ -92,6 +98,7 @@ export class BoardsStore {
 
     try {
       const updatedBoard: Board = await boardsApi.editBoardAsync<Board>(board);
+      await this.updateAccount(updatedBoard.id, 'add');
 
       runInAction(() => {
         const index = this.boards.findIndex(({ id }) => id === updatedBoard.id);
@@ -134,7 +141,10 @@ export class BoardsStore {
     }
   };
 
-  removeFieldsFromBoardAsync = async ({ boardId, removeFieldsId }: Omit<RemoveFieldsPayload, 'updatedCard'>): Promise<void> => {
+  removeFieldsFromBoardAsync = async ({
+    boardId,
+    removeFieldsId,
+  }: Omit<RemoveFieldsPayload, 'updatedCard'>): Promise<void> => {
     this.setLoading = true;
     this.error = null;
 
@@ -171,5 +181,14 @@ export class BoardsStore {
 
   private handleResponseError(error: AxiosError): void {
     this.error = error.message;
+  }
+
+  private async updateAccount(boardId: string, mode: 'add' | 'remove'): Promise<void> {
+    const updatedAccount: Account = {
+      ...this.root.accounts.currentAccount,
+      boardsId: mode === 'add' ? [...this.root.accounts.currentAccount.boardsId, boardId] : this.root.accounts.currentAccount.boardsId.filter((id) => id !== boardId),
+    };
+
+    return this.root.accounts.editAccountAsync(updatedAccount);
   }
 }

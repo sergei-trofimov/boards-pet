@@ -6,7 +6,7 @@ import { CardsStore } from './cards';
 
 export class RootStore {
   public auth = new AuthStore();
-  public boards = new BoardsStore();
+  public boards = new BoardsStore(this);
   public cards = new CardsStore(this);
   public accounts = new AccountStore(this);
 }

@@ -40,15 +40,12 @@ export class AccountApi extends BaseApi {
   //   return await this.axiosInstance.delete<null>(url);
   // }
 
-  // async editBoardAsync<T extends Board>(payload: T): Promise<Board> {
-  //   const url = this.buildUrl(ENVIRONMENT_CONFIG.BASE_DB_URL, true, null, (e: Endpoints) => e.db.boards, [
-  //     this.localId,
-  //     payload.id,
-  //   ]);
-  //   const { data } = await this.axiosInstance.patch<T>(url, JSON.stringify({ title: payload.title } as T));
-
-  //   return { ...payload, ...data };
-  // }
+  async editAccountAsync(payload: Account): Promise<Account> {
+    const url = this.buildUrl(ENVIRONMENT_CONFIG.BASE_DB_URL, true, null, (e: Endpoints) => e.db.accounts, payload.id);
+    const { data } = await this.axiosInstance.patch<Account>(url, JSON.stringify(payload));
+    console.log(data)
+    return { ...payload, ...data };
+  }
 
   // async editRelatedCardsIdAsync(payload: { relatedCardsId: string[]; id: string }): Promise<AxiosResponse<null>> {
   //   const url = this.buildUrl(ENVIRONMENT_CONFIG.BASE_DB_URL, true, null, (e: Endpoints) => e.db.boards, [
