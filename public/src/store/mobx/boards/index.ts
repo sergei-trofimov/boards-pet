@@ -23,12 +23,12 @@ export class BoardsStore {
     this.isLoading = loading;
   }
 
-  getAllBoardsAsync = async (): Promise<void> => {
+  getAllBoardsAsync = async (ids: string[]): Promise<void> => {
     this.setLoading = true;
     this.error = null;
 
     try {
-      const boards: Board[] = await boardsApi.getAllBoardsAsync();
+      const boards: Board[] = (await boardsApi.getAllBoardsAsync()).filter(({ id }) => ids.includes(id));
 
       runInAction(() => {
         this.boards = boards;

@@ -21,7 +21,7 @@ const RootLayout: FC = () => {
     if (data) {
       login(data);
     }
-  }, [data, login]);
+  }, [data]);
 
   return <Outlet />;
 };

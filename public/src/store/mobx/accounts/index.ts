@@ -3,13 +3,13 @@ import { UsersApi } from '@Helpers/api/users-api';
 import { Account } from '@Types/entities/account.model';
 import { User } from '@Types/entities/user.model';
 import { AxiosError } from 'axios';
-import { makeAutoObservable, runInAction } from 'mobx';
+import { makeAutoObservable, runInAction, toJS } from 'mobx';
 import { RootStore } from '../store';
 
 const accountApi = AccountApi.Instance;
 const usersApi = UsersApi.Instance;
 
-export class AcountStore {
+export class AccountStore {
   accounts: Account[] = [];
   currentAccount: Account = null;
   isLoading = false;
@@ -35,7 +35,6 @@ export class AcountStore {
 
       runInAction(() => {
         this.accounts.push(account);
-        this.currentAccount = account;
         this.root.auth.user = user;
       });
     } catch (error) {
@@ -47,6 +46,32 @@ export class AcountStore {
         this.setLoading = false;
       });
     }
+  };
+
+  getUserAccountsAsync = async (): Promise<void> => {
+    this.setLoading = true;
+    this.error = null;
+
+    try {
+      const { accountsId = [] } = this.root.auth.user;
+      const accounts: Account[] = await accountApi.getUserAccountsAsync(accountsId);
+
+      runInAction(() => {
+        this.accounts.push(...accounts);
+      });
+    } catch (error) {
+      runInAction(() => {
+        this.handleResponseError(<AxiosError>error);
+      });
+    } finally {
+      runInAction(() => {
+        this.setLoading = false;
+      });
+    }
+  };
+
+  setAccount = (account: Account): void => {
+    this.currentAccount = account;
   };
 
   private handleResponseError(error: AxiosError): void {

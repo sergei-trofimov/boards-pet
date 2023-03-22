@@ -15,12 +15,12 @@ const Header: FC = () => {
   const location = useLocation();
   const {
     auth: { logout },
-    boards: { getAllBoardsAsync },
+    // boards: { getAllBoardsAsync },
   } = useRootStoreContext();
 
-  useEffect(() => {
-    getAllBoardsAsync();
-  }, [getAllBoardsAsync]);
+  // useEffect(() => {
+  //   getAllBoardsAsync();
+  // }, [getAllBoardsAsync]);
 
   const handleLogoutClick = useCallback(() => {
     localStorage.removeItem(LocalStorageKeys.ID_TOKEN);

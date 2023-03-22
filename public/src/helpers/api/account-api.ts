@@ -1,4 +1,3 @@
-import { AuthResponse } from '@Types/api/auth-reponses.model';
 import { BaseApi } from './base-api';
 import { ENVIRONMENT_CONFIG } from '@Constants/env-config.constant';
 import { Endpoints } from '@Types/api/endpoints.model';
@@ -20,16 +19,18 @@ export class AccountApi extends BaseApi {
     const url = this.buildUrl(ENVIRONMENT_CONFIG.BASE_DB_URL, true, null, (e: Endpoints) => e.db.accounts);
     const { data } = await this.axiosInstance.post(url, JSON.stringify(body));
 
-    return { ...body, id: data.name };
+    return { ...body, id: data.name, boardsId: [] };
   }
 
-  // async getAllBoardsAsync(): Promise<Board[]> {
-  //   const url = this.buildUrl(ENVIRONMENT_CONFIG.BASE_DB_URL, true, null, (e: Endpoints) => e.db.boards, this.localId);
-  //   const { data } = await this.axiosInstance.get<BoardResponse>(url);
-  //   const boards: Board[] = Object.keys(data).map((id) => ({ id, ...data[id] }));
+  async getUserAccountsAsync(ids: string[]): Promise<Account[]> {
+    const url = this.buildUrl(ENVIRONMENT_CONFIG.BASE_DB_URL, true, null, (e: Endpoints) => e.db.accounts);
+    const { data } = await this.axiosInstance.get<{ [key: string]: Omit<Account, 'id'> }>(url);
+    const accounts: Account[] = Object.keys(data)
+      .map((id) => ({ id, ...data[id], boardsId: data[id]['boardsId'] ?? [] }))
+      .filter(({ id }) => ids.includes(id));
 
-  //   return boards;
-  // }
+    return accounts;
+  }
 
   // async removeBoardAsync(id: string): Promise<AxiosResponse<null>> {
   //   const url = this.buildUrl(ENVIRONMENT_CONFIG.BASE_DB_URL, true, null, (e: Endpoints) => e.db.boards, [

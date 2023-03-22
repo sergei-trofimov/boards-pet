@@ -8,7 +8,7 @@ import CardEdit from '@Components/Card/CardEdit/CardEdit';
 import CardsList from '@Components/Card/CardsList/CardsList';
 import CardsPage from '@Pages/CardsPage/CardsPage';
 import { loader as ForceAuthLoader } from '@Pages/SignUp/loaders/force-auth-loader';
-import { HomePage } from '@Pages/HomePage/HomePage';
+import HomePage from '@Pages/HomePage/HomePage';
 import LoginPage from '@Pages/Login/LoginPage';
 import NewField from '@Components/Field/NewField/NewField';
 import { RootErrorPage } from '@Pages/RootError/RootErrorPage';
