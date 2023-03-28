@@ -1,24 +1,41 @@
 # React Education
 
 ## About the project
-A pet project for improving skills in React/Ract-Router/Redux. The project was created manually (without CRA), by using Webpack.
-
-#### Description
-The project has a simple authorization by Firebase. You can create boards, and each board has its own cards. Each card has inputs (text, checkbox, select). Users can dynamically change (create/edit/remove) fields. Each operation affects all cards in the current board. The project also added Drag&Drop for cards, which also affects every card change.
+Application configured manually using Webpack (also I have a branch with migration on the Vite version). The app allows/has:
+>- Authorization (Log in/Sign up). Authorization is using Firebase Authentication.
+>- A user can create an account (unique workspace) and email invites other users. This opportunity allows the creation of some workspace for several users.
+>- Users can create boards(any amount);
+>- Each board can have cards (any amount);
+>- Each card can have fields (text, checkbox, select). Users can create, edit, and remove these fields. (App allows create inputs dynamically).
+>- Also users can edit and remove boards and cards.
+>- Drag and Drop feature;
+>- Also added Web Sockets for real-time updates. So when one user makes some changes (for example create a board) other users immediately receive newly updated data. 
 
 You can visit the preview of the project
 ### [**Preview Link**](https://pointless-humor.surge.sh/)
 
 ### **Use technologies**
->1. React
->2. React Router DOM v.^6.4
->3. Redux/Toolkit/Thunk (also has a version with mobX as state manager)
+>1. React 18.2
+>2. React Router DOM 6.4
+>3. Redux/Toolkit/Thunk
 >4. Formik
 >5. Tailwind CSS
->6. Lottie animations
+>6. Lottie
 >7. Axios
 >8. Firebase
 >9. Surge (for the project deployment)
+>10. MobX (alternate version instead of using Redux)
+>11. Webpack (also have migration to Vite)
+>12. TypeScript
+>13. Web Socket
+>14. Socket IO
+>15. Express
+>16. Node JS
+>17. Nodemailer
+>18. ESLint
+>19. Husky
+>20. Prettier
+>21. Jest
 
 ### **Scripts commands**
 >1. ***npm run start***: running the project in the development mode;
