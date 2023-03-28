@@ -1,4 +1,5 @@
-/* eslint-disable no-console */
+import { ENVIRONMENT_CONFIG } from '@Constants/env-config.constant';
+import { WSEvents } from '@Constants/ws-events.constant';
 import { makeAutoObservable, runInAction } from 'mobx';
 import { io, Socket } from 'socket.io-client';
 import { RootStore } from '../store';
@@ -19,7 +20,7 @@ export class SocketStore {
 
     if (accountId) {
       runInAction(() => {
-        this.socket = io('https://boards-server.onrender.com');
+        this.socket = io(ENVIRONMENT_CONFIG.SERVER_URL);
       });
 
       this.joinRoom(accountId);
@@ -28,39 +29,31 @@ export class SocketStore {
   };
 
   boardsUpdate = (): void => {
-    this.socket.emit('boards_update');
+    this.socket.emit(WSEvents.BOARDS_UPDATE);
   };
 
   cardsUpdate = (): void => {
-    this.socket.emit('cards_update');
+    this.socket.emit(WSEvents.CARDS_UPDATE);
   };
 
   fieldsUpdate = (): void => {
-    this.socket.emit('fields_update');
+    this.socket.emit(WSEvents.CARDS_UPDATE);
   };
 
   private joinRoom = (accountId: string): void => {
-    this.socket.on('joined_to_account_success', () => {
-      console.log('joined success');
-    });
-
-    this.socket.emit('join_account', accountId);
+    this.socket.emit(WSEvents.JOIN_ACCOUNT, accountId);
   };
 
   private initListeners = (): void => {
-    this.socket.on('connect', () => {
-      console.log('connection run');
-    });
-
-    this.socket.on('boards_updated_trigger', () => {
+    this.socket.on(WSEvents.BOARDS_UPDATED_TRIGGER, () => {
       this.root.boards.getAllBoardsAsync(this.root.accounts.currentAccount.boardsId);
     });
 
-    this.socket.on('cards_updated_trigger', () => {
+    this.socket.on(WSEvents.CARDS_UPDATED_TRIGGER, () => {
       this.root.cards.fetchCardsByBoardIdAsync(this.root.cards.cards[0].boardId);
     });
 
-    this.socket.on('fields_updated_trigger', () => {
+    this.socket.on(WSEvents.FIELDS_UPDATED_TRIGGER, () => {
       this.root.cards.fetchCardsByBoardIdAsync(this.root.cards.cards[0].boardId);
     });
   };
