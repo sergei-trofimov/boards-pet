@@ -11,8 +11,11 @@ Application configured manually using Webpack (also I have a branch with migrati
 >- Drag and Drop feature;
 >- Also added Web Sockets for real-time updates. So when one user makes some changes (for example create a board) other users immediately receive newly updated data. 
 
-You can visit the preview of the project
-### [**Preview Link**](https://pointless-humor.surge.sh/)
+## You can visit the preview of the project
+#### [**Preview Link**](https://pointless-humor.surge.sh/)
+
+## [**Server PR**](https://github.com/sergei-trofimov/boards-pet-server)
+
 
 ### **Use technologies**
 >1. React 18.2
