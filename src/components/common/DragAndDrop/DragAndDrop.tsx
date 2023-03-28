@@ -1,10 +1,10 @@
-import { cardThunks } from '@App-store/cards/actions';
-import { useAppDispatch } from '@App-store/store';
-import { CardsItem } from '@Components/Card/CardsItem/CardsItem';
+import { useRootStoreContext } from '@App-store/mobx/store';
+import CardsItem from '@Components/Card/CardsItem/CardsItem';
 import { FieldTypeEnum } from '@Components/Field/NewField/types';
 import { Board } from '@Types/entities/board.model';
 import { Card } from '@Types/entities/card.model';
 import { BaseFormFieldDisplayModel, SelectOptionDisplayModel } from '@Types/form/form-data-to-display.models';
+import { observer } from 'mobx-react-lite';
 import { FC, useCallback, useEffect, useState } from 'react';
 
 type DragAndDropProps = {
@@ -19,11 +19,11 @@ type DragAndDropOption = {
   items: Card[];
 };
 
-export const DragAndDrop: FC<DragAndDropProps> = ({ board, cards, groupBy }) => {
+const DragAndDrop: FC<DragAndDropProps> = ({ board, cards, groupBy }) => {
   const [options, setOptions] = useState<DragAndDropOption[]>(() => groupByFn(board, cards, groupBy));
   const [draggableCard, setDraggebleCard] = useState<Card>(null);
   const [dragFromBoard, setDragFromBoard] = useState<DragAndDropOption>(null);
-  const dispatch = useAppDispatch();
+  const { editCardAsync } = useRootStoreContext().cards;
 
   const dragStartHandler = (option: DragAndDropOption, item: Card) => {
     setDraggebleCard(item);
@@ -49,7 +49,7 @@ export const DragAndDrop: FC<DragAndDropProps> = ({ board, cards, groupBy }) => 
     const updatedOptions = updateDragAndDropOptions(options, option, draggableCard);
     const updatedCard: Card = updateCardValue(option, draggableCard, groupBy);
 
-    dispatch(cardThunks.editCard(updatedCard));
+    editCardAsync(updatedCard);
     setDraggebleCard(null);
     setOptions(updatedOptions);
   };
@@ -95,16 +95,19 @@ export const DragAndDrop: FC<DragAndDropProps> = ({ board, cards, groupBy }) => 
   );
 };
 
+export default observer(DragAndDrop);
+
 const updateCardValue = (dropOnOption: DragAndDropOption, draggableCard: Card, groupBy: string): Card => {
-  const fields: BaseFormFieldDisplayModel[] = structuredClone(draggableCard).fields.map((field) => {
-    if (field.name === groupBy) {
-      field.value = dropOnOption.value;
-    }
+  return {
+    ...draggableCard,
+    fields: draggableCard.fields.map((field) => {
+      if (field.name === groupBy) {
+        field.value = dropOnOption.value;
+      }
 
-    return field;
-  });
-
-  return { ...draggableCard, fields };
+      return field;
+    }),
+  };
 };
 
 const updateDragAndDropOptions = (
@@ -112,11 +115,14 @@ const updateDragAndDropOptions = (
   dropOnOption: DragAndDropOption,
   draggableCard: Card
 ): DragAndDropOption[] => {
-  const updatedOptions: DragAndDropOption[] = structuredClone(options).map((option) => {
-    option.items = option.items.filter((opt) => opt.id !== draggableCard.id);
-    option.id === dropOnOption.id && option.items.push(draggableCard);
+  const updatedOptions: DragAndDropOption[] = options.map((option) => {
+    const updatedOption = {
+      ...option,
+      items: option.items.filter((opt) => opt.id !== draggableCard.id),
+    };
+    option.id === dropOnOption.id && updatedOption.items.push(draggableCard);
 
-    return option;
+    return updatedOption;
   });
 
   return updatedOptions;

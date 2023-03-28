@@ -8,5 +8,10 @@ export interface Endpoints {
     users: string;
     boards: string;
     cards: string;
+    accounts: string;
+    invitations: string;
+  };
+  server: {
+    invite: string;
   };
 }

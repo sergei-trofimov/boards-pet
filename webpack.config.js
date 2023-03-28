@@ -20,7 +20,7 @@ const baseConfig = {
   entry: './src/index.tsx',
   output: {
     filename: '[name].bundle.js',
-    path: path.join(__dirname, 'public'),
+    path: path.join(__dirname, 'dist'),
     clean: true,
   },
   optimization: {

@@ -13,6 +13,7 @@ export type ButtonRestProps = {
 export type ButtonProps = {
   classNames?: string;
   loading?: boolean;
+  disabled?: boolean;
   type?: 'submit' | 'reset' | 'button';
   onClickHandler?: (event?: SyntheticEvent<HTMLButtonElement, MouseEvent>) => void;
 } & ButtonRestProps;

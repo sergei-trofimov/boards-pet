@@ -1,19 +1,20 @@
 import { RouteObject, redirect } from 'react-router-dom';
 import { AppRoutes } from '@Constants/app-routes';
 import { action as AuthAction } from '@Pages/SignUp/actions/auth-action';
-import { AuthRoutesGuard } from '@Components/routes-guard/AuthRoutesGuard/AuthRoutesGuard';
-import { BoardEdit } from '@Components/Board/BoardEdit/BoardEdit';
-import { BoardsPage } from '@Pages/BoardsPage/BoardsPage';
-import { CardEdit } from '@Components/Card/CardEdit/CardEdit';
-import { CardsList } from '@Components/Card/CardsList/CardsList';
-import { CardsPage } from '@Pages/CardsPage/CardsPage';
+import AuthRoutesGuard from '@Components/routes-guard/AuthRoutesGuard/AuthRoutesGuard';
+import BoardEdit from '@Components/Board/BoardEdit/BoardEdit';
+import BoardsPage from '@Pages/BoardsPage/BoardsPage';
+import CardEdit from '@Components/Card/CardEdit/CardEdit';
+import CardsList from '@Components/Card/CardsList/CardsList';
+import CardsPage from '@Pages/CardsPage/CardsPage';
 import { loader as ForceAuthLoader } from '@Pages/SignUp/loaders/force-auth-loader';
-import { HomePage } from '@Pages/HomePage/HomePage';
-import { LoginPage } from '@Pages/Login/LoginPage';
-import { NewField } from '@Components/Field/NewField/NewField';
+import HomePage from '@Pages/HomePage/HomePage';
+import LoginPage from '@Pages/Login/LoginPage';
+import NewField from '@Components/Field/NewField/NewField';
 import { RootErrorPage } from '@Pages/RootError/RootErrorPage';
-import { RootLayout } from '@Pages/Root/RootLayout';
-import { SignUpPage } from '@Pages/SignUp/SignUpPage';
+import RootLayout from '@Pages/Root/RootLayout';
+import SignUpPage from '@Pages/SignUp/SignUpPage';
+import AccountsPage from '@Pages/AccountsPAge/AccountsPage';
 
 export const routerConfig: RouteObject[] = [
   {
@@ -57,6 +58,10 @@ export const routerConfig: RouteObject[] = [
                     element: <NewField />,
                   },
                 ],
+              },
+              {
+                path: AppRoutes.accounts,
+                element: <AccountsPage />,
               },
             ],
           },

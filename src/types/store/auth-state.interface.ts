@@ -1,5 +1,5 @@
 import { AuthResponse } from '@Types/api/auth-reponses.model';
-import { User } from '@Types/entities/user';
+import { User } from '@Types/entities/user.model';
 
 interface AuthState {
   isAuth: boolean;

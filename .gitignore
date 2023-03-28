@@ -2,7 +2,7 @@
 /node_modules
 
 # compiled output
-/public
+/dist
 
 # env
 /.env

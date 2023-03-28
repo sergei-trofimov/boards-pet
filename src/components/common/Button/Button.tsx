@@ -18,6 +18,7 @@ export const Button: FC<PropsWithChildren<ButtonProps>> = ({
   type = 'button',
   onClickHandler,
   loading,
+  disabled,
   ...rest
 }) => {
   const classesByAttributes: string = buildClassesByAttributes<ButtonRole>(rest, ButtonClassesMapper);
@@ -30,7 +31,7 @@ export const Button: FC<PropsWithChildren<ButtonProps>> = ({
   };
 
   return (
-    <button disabled={loading} type={type} className={classes} onClick={onClickHandler || null}>
+    <button disabled={loading || disabled} type={type} className={classes} onClick={onClickHandler || null}>
       {loading ? (
         <Animation animationName={AnimationsName.CIRCLE_LOADER} animationConfig={animationConfig} />
       ) : (

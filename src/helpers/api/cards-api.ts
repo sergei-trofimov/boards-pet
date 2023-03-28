@@ -19,7 +19,7 @@ export class CardsApi extends BaseApi {
 
   async createCardAsync(body: CardRequestPayload, boardId: string): Promise<Card> {
     const url = this.buildUrl(ENVIRONMENT_CONFIG.BASE_DB_URL, true, null, (e: Endpoints) => e.db.cards, [
-      this.localId,
+      this.accountId,
       boardId,
     ]);
     const { data } = await this.axiosInstance.post<CreateEntityResponse>(url, JSON.stringify(body));
@@ -29,7 +29,7 @@ export class CardsApi extends BaseApi {
 
   async getCardsByBoardIdAsync(boardId: string): Promise<Card[]> {
     const url = this.buildUrl(ENVIRONMENT_CONFIG.BASE_DB_URL, true, null, (e: Endpoints) => e.db.cards, [
-      this.localId,
+      this.accountId,
       boardId,
     ]);
     const { data } = await this.axiosInstance.get<Dictionary<Card>>(url);
@@ -39,7 +39,7 @@ export class CardsApi extends BaseApi {
 
   async editCardAsync(payload: Card): Promise<Card> {
     const url = this.buildUrl(ENVIRONMENT_CONFIG.BASE_DB_URL, true, null, (e: Endpoints) => e.db.cards, [
-      this.localId,
+      this.accountId,
       payload.boardId,
       payload.id,
     ]);
@@ -51,7 +51,7 @@ export class CardsApi extends BaseApi {
 
   async deleteCardAsync(card: Card): Promise<AxiosResponse<null>> {
     const url = this.buildUrl(ENVIRONMENT_CONFIG.BASE_DB_URL, true, null, (e: Endpoints) => e.db.cards, [
-      this.localId,
+      this.accountId,
       card.boardId,
       card.id,
     ]);

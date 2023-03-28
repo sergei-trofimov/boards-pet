@@ -1,6 +1,6 @@
 import { AppRoutes } from '@Constants/app-routes';
 import { Board } from '@Types/entities/board.model';
-import { BoardsItem } from '@Components/Board/BoardsItem/BoardsItem';
+import BoardsItem from '@Components/Board/BoardsItem/BoardsItem';
 import { BoardsListProps } from './types';
 import { CreateNewEntity } from '@Common/CreateNewEntity/CreateNewEntity';
 import { FC } from 'react';

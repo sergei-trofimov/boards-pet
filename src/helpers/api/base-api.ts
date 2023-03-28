@@ -26,6 +26,10 @@ export abstract class BaseApi {
     return localStorage.getItem(LocalStorageKeys.LOCAL_ID);
   }
 
+  protected get accountId(): string {
+    return localStorage.getItem(LocalStorageKeys.ACCOUNT_ID);
+  }
+
   protected buildUrl(
     basePath: ENVIRONMENT_CONFIG,
     withJSON: boolean,

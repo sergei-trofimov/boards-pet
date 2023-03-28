@@ -2,14 +2,12 @@ import { FC, useEffect } from 'react';
 import { Outlet, useLoaderData, useLocation, useNavigate } from 'react-router-dom';
 import { AppRoutes } from '@Constants/app-routes';
 import { AuthResponse } from '@Types/api/auth-reponses.model';
-import { authActions } from '@Auth-state/auth-slice';
-import { useDispatch } from 'react-redux';
-import { RootState, useAppSelector } from '@App-store/store';
+import { useRootStoreContext } from '@App-store/mobx/store';
+import { observer } from 'mobx-react-lite';
 
-export const RootLayout: FC = () => {
+const RootLayout: FC = () => {
   const data = useLoaderData() as AuthResponse | null;
-  const dispatch = useDispatch();
-  const isAuth: boolean = useAppSelector((state: RootState) => state.auth.isAuth);
+  const { isAuth, login } = useRootStoreContext().auth;
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -21,9 +19,11 @@ export const RootLayout: FC = () => {
 
   useEffect(() => {
     if (data) {
-      dispatch(authActions.login(data));
+      login(data);
     }
-  }, [data, dispatch]);
+  }, [data]);
 
   return <Outlet />;
 };
+
+export default observer(RootLayout);

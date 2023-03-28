@@ -21,7 +21,7 @@ export class FieldsApi extends BaseApi {
   async editFieldsAsync(boardId: string, cards: Card[]): Promise<BaseFormFieldDisplayModel[][]> {
     const requests: Promise<BaseFormFieldDisplayModel[]>[] = cards.map(async (card) => {
       const url = this.buildUrl(ENVIRONMENT_CONFIG.BASE_DB_URL, true, null, (e: Endpoints) => e.db.cards, [
-        this.localId,
+        this.accountId,
         boardId,
         card.id,
       ]);
